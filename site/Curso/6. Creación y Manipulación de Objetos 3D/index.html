@@ -1,0 +1,1534 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../5.%20C%C3%A1maras%20y%20Control%20de%20la%20C%C3%A1mara/">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.41">
+    
+    
+      
+        <title>6. Creación y Manipulación de Objetos 3D - Guia de modelado 3D</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#61-introduccion-a-las-mallas-threemesh" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Guia de modelado 3D" class="md-header__button md-logo" aria-label="Guia de modelado 3D" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Guia de modelado 3D
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              6. Creación y Manipulación de Objetos 3D
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Guia de modelado 3D" class="md-nav__button md-logo" aria-label="Guia de modelado 3D" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Guia de modelado 3D
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    curso
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            curso
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.%20Introducci%C3%B3n%20a%20Three.js/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introducción a Three.js
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.%20Estructura%20B%C3%A1sica%20de%20una%20Escena%20en%20Three.js/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Estructura Básica de una Escena en Three.js
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.%20Geometr%C3%ADas%20y%20Materiales/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Geometrías y Materiales
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4.%20Luces%20en%20Three.js/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Luces en Three.js
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.%20C%C3%A1maras%20y%20Control%20de%20la%20C%C3%A1mara/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Cámaras y Control de la Cámara
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    6. Creación y Manipulación de Objetos 3D
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    6. Creación y Manipulación de Objetos 3D
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#61-introduccion-a-las-mallas-threemesh" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Introducción a las Mallas (THREE.Mesh)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#62-creacion-de-mallas-threemesh" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Creación de Mallas (THREE.Mesh)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.2 Creación de Mallas (THREE.Mesh)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#621-sintaxis-basica-de-threemesh" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2.1 Sintaxis Básica de THREE.Mesh
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#622-ejemplo-crear-un-cubo-verde" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2.2 Ejemplo: Crear un Cubo Verde
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#63-transformaciones-de-objetos-traslacion-rotacion-y-escalado" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Transformaciones de Objetos: Traslación, Rotación y Escalado
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.3 Transformaciones de Objetos: Traslación, Rotación y Escalado">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#631-traslacion-movimiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3.1 Traslación (Movimiento)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#632-rotacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3.2 Rotación
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#633-escalado" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3.3 Escalado
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#634-metodos-de-transformacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3.4 Métodos de Transformación
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#64-agrupar-objetos-threegroup" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.4 Agrupar Objetos (THREE.Group)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.4 Agrupar Objetos (THREE.Group)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#641-crear-y-utilizar-un-grupo" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.4.1 Crear y Utilizar un Grupo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#643-anidar-grupos" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.4.3 Anidar Grupos
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#65-manipulacion-dinamica-de-objetos" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.5 Manipulación Dinámica de Objetos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.5 Manipulación Dinámica de Objetos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#651-escuchar-eventos-del-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.5.1 Escuchar Eventos del Usuario
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#652-animaciones-basadas-en-eventos" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.5.2 Animaciones Basadas en Eventos
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#66-creacion-de-objetos-compuestos" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.6 Creación de Objetos Compuestos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.6 Creación de Objetos Compuestos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#661-ejemplo-crear-un-robot-basico" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.6.1 Ejemplo: Crear un Robot Básico
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#67-manipulacion-de-mallas-individuales-dentro-de-un-grupo" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.7 Manipulación de Mallas Individuales Dentro de un Grupo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#68-mejores-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.8 Mejores Prácticas
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#69-ejemplo-completo-escena-con-mallas-transformaciones-y-agrupacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.9 Ejemplo Completo: Escena con Mallas, Transformaciones y Agrupación
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.9 Ejemplo Completo: Escena con Mallas, Transformaciones y Agrupación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#691-estructura-de-carpetas" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.9.1 Estructura de Carpetas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#692-contenido-de-indexhtml" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.9.2 Contenido de index.html
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#61-introduccion-a-las-mallas-threemesh" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.1 Introducción a las Mallas (THREE.Mesh)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#62-creacion-de-mallas-threemesh" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2 Creación de Mallas (THREE.Mesh)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.2 Creación de Mallas (THREE.Mesh)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#621-sintaxis-basica-de-threemesh" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2.1 Sintaxis Básica de THREE.Mesh
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#622-ejemplo-crear-un-cubo-verde" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.2.2 Ejemplo: Crear un Cubo Verde
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#63-transformaciones-de-objetos-traslacion-rotacion-y-escalado" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3 Transformaciones de Objetos: Traslación, Rotación y Escalado
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.3 Transformaciones de Objetos: Traslación, Rotación y Escalado">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#631-traslacion-movimiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3.1 Traslación (Movimiento)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#632-rotacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3.2 Rotación
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#633-escalado" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3.3 Escalado
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#634-metodos-de-transformacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.3.4 Métodos de Transformación
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#64-agrupar-objetos-threegroup" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.4 Agrupar Objetos (THREE.Group)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.4 Agrupar Objetos (THREE.Group)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#641-crear-y-utilizar-un-grupo" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.4.1 Crear y Utilizar un Grupo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#643-anidar-grupos" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.4.3 Anidar Grupos
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#65-manipulacion-dinamica-de-objetos" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.5 Manipulación Dinámica de Objetos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.5 Manipulación Dinámica de Objetos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#651-escuchar-eventos-del-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.5.1 Escuchar Eventos del Usuario
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#652-animaciones-basadas-en-eventos" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.5.2 Animaciones Basadas en Eventos
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#66-creacion-de-objetos-compuestos" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.6 Creación de Objetos Compuestos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.6 Creación de Objetos Compuestos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#661-ejemplo-crear-un-robot-basico" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.6.1 Ejemplo: Crear un Robot Básico
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#67-manipulacion-de-mallas-individuales-dentro-de-un-grupo" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.7 Manipulación de Mallas Individuales Dentro de un Grupo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#68-mejores-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.8 Mejores Prácticas
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#69-ejemplo-completo-escena-con-mallas-transformaciones-y-agrupacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.9 Ejemplo Completo: Escena con Mallas, Transformaciones y Agrupación
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.9 Ejemplo Completo: Escena con Mallas, Transformaciones y Agrupación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#691-estructura-de-carpetas" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.9.1 Estructura de Carpetas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#692-contenido-de-indexhtml" class="md-nav__link">
+    <span class="md-ellipsis">
+      6.9.2 Contenido de index.html
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>6. Creación y Manipulación de Objetos 3D</h1>
+
+<h3 id="61-introduccion-a-las-mallas-threemesh">6.1 Introducción a las Mallas (<code>THREE.Mesh</code>)</h3>
+<p>En Three.js, <strong>las mallas</strong> (<code>Mesh</code>) son los objetos básicos que representan formas 3D en una escena. Una malla combina una <strong>geometría</strong> (la forma) con un <strong>material</strong> (la apariencia visual), permitiendo así que los objetos tengan una forma definida y una apariencia determinada.</p>
+<h3 id="62-creacion-de-mallas-threemesh">6.2 Creación de Mallas (<code>THREE.Mesh</code>)</h3>
+<p>Una malla en Three.js se crea combinando una geometría con un material. A continuación, se muestra cómo crear y añadir una malla simple a una escena.</p>
+<h4 id="621-sintaxis-basica-de-threemesh">6.2.1 Sintaxis Básica de <code>THREE.Mesh</code></h4>
+<pre><code class="language-javascript">const malla = new THREE.Mesh(geometria, material);
+scene.add(malla);
+</code></pre>
+<ul>
+<li><strong><code>geometria</code>:</strong> Define la forma del objeto (por ejemplo, <code>BoxGeometry</code>, <code>SphereGeometry</code>, etc.).</li>
+<li><strong><code>material</code>:</strong> Define la apariencia del objeto (por ejemplo, <code>MeshBasicMaterial</code>, <code>MeshStandardMaterial</code>, etc.).</li>
+</ul>
+<h4 id="622-ejemplo-crear-un-cubo-verde">6.2.2 Ejemplo: Crear un Cubo Verde</h4>
+<p>A continuación, se presenta un ejemplo completo que crea un cubo verde y lo añade a la escena.</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Malla Básica en Three.js&lt;/title&gt;
+    &lt;style&gt;
+        body { margin: 0; }
+        canvas { display: block; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Enlace a Three.js --&gt;
+    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+        // 1. Crear la escena
+        const escena = new THREE.Scene();
+
+        // 2. Crear la cámara
+        const camara = new THREE.PerspectiveCamera(
+            75, // Campo de visión
+            window.innerWidth / window.innerHeight, // Relación de aspecto
+            0.1, // Plano cercano
+            1000 // Plano lejano
+        );
+        camara.position.z = 5; // Posicionar la cámara
+
+        // 3. Crear el renderizador
+        const renderizador = new THREE.WebGLRenderer({ antialias: true });
+        renderizador.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderizador.domElement);
+
+        // 4. Crear la geometría y el material
+        const geometriaCubo = new THREE.BoxGeometry(1, 1, 1); // Geometría de caja
+        const materialVerde = new THREE.MeshBasicMaterial({ color: 0x00ff00 }); // Material verde básico
+
+        // 5. Crear la malla y añadirla a la escena
+        const cubo = new THREE.Mesh(geometriaCubo, materialVerde);
+        escena.add(cubo);
+
+        // 6. Función de animación
+        function animar() {
+            requestAnimationFrame(animar);
+
+            // Rotar el cubo
+            cubo.rotation.x += 0.01;
+            cubo.rotation.y += 0.01;
+
+            // Renderizar la escena
+            renderizador.render(escena, camara);
+        }
+
+        animar(); // Iniciar la animación
+
+        // 7. Manejar el redimensionamiento de la ventana
+        window.addEventListener('resize', () =&gt; {
+            const ancho = window.innerWidth;
+            const alto = window.innerHeight;
+
+            renderizador.setSize(ancho, alto);
+            camara.aspect = ancho / alto;
+            camara.updateProjectionMatrix();
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><strong>Resultado Esperado:</strong></p>
+<p>Al abrir el archivo HTML en tu navegador, deberías ver un cubo verde girando en el centro de la pantalla.</p>
+<h3 id="63-transformaciones-de-objetos-traslacion-rotacion-y-escalado">6.3 Transformaciones de Objetos: Traslación, Rotación y Escalado</h3>
+<p>Las transformaciones permiten modificar la posición, orientación y tamaño de los objetos en la escena. Three.js proporciona métodos y propiedades para aplicar estas transformaciones de manera sencilla.</p>
+<h4 id="631-traslacion-movimiento">6.3.1 Traslación (Movimiento)</h4>
+<p><strong>Descripción:</strong></p>
+<p>La traslación mueve un objeto de un lugar a otro en el espacio 3D.</p>
+<p><strong>Propiedades Principales:</strong></p>
+<ul>
+<li><code>position.x</code>: Movimiento a lo largo del eje X.</li>
+<li><code>position.y</code>: Movimiento a lo largo del eje Y.</li>
+<li><code>position.z</code>: Movimiento a lo largo del eje Z.</li>
+</ul>
+<p><strong>Ejemplo: Mover un Cubo hacia la Derecha y Arriba</strong></p>
+<pre><code class="language-javascript">cubo.position.x += 2; // Mover 2 unidades a la derecha
+cubo.position.y += 1; // Mover 1 unidad hacia arriba
+</code></pre>
+<h4 id="632-rotacion">6.3.2 Rotación</h4>
+<p><strong>Descripción:</strong></p>
+<p>La rotación gira un objeto alrededor de uno o más ejes.</p>
+<p><strong>Propiedades Principales:</strong></p>
+<ul>
+<li><code>rotation.x</code>: Rotación alrededor del eje X (en radianes).</li>
+<li><code>rotation.y</code>: Rotación alrededor del eje Y (en radianes).</li>
+<li><code>rotation.z</code>: Rotación alrededor del eje Z (en radianes).</li>
+</ul>
+<p><strong>Ejemplo: Rotar un Cubo 45 Grados en el Eje Y</strong></p>
+<pre><code class="language-javascript">const grados = 45;
+const radianes = grados * (Math.PI / 180);
+cubo.rotation.y += radianes; // Rotar 45 grados en el eje Y
+</code></pre>
+<h4 id="633-escalado">6.3.3 Escalado</h4>
+<p><strong>Descripción:</strong></p>
+<p>El escalado cambia el tamaño de un objeto en una o más direcciones.</p>
+<p><strong>Propiedades Principales:</strong></p>
+<ul>
+<li><code>scale.x</code>: Escalado a lo largo del eje X.</li>
+<li><code>scale.y</code>: Escalado a lo largo del eje Y.</li>
+<li><code>scale.z</code>: Escalado a lo largo del eje Z.</li>
+</ul>
+<p><strong>Ejemplo: Escalar un Cubo al Doble de su Tamaño Original</strong></p>
+<pre><code class="language-javascript">cubo.scale.set(2, 2, 2); // Escalar en X, Y y Z al doble
+</code></pre>
+<h4 id="634-metodos-de-transformacion">6.3.4 Métodos de Transformación</h4>
+<p>Además de las propiedades mencionadas, Three.js ofrece métodos para aplicar transformaciones de manera más controlada.</p>
+<ul>
+<li><strong><code>translateX(distance)</code></strong>: Trasladar el objeto a lo largo del eje X.</li>
+<li><strong><code>translateY(distance)</code></strong>: Trasladar el objeto a lo largo del eje Y.</li>
+<li><strong><code>translateZ(distance)</code></strong>: Trasladar el objeto a lo largo del eje Z.</li>
+<li><strong><code>rotateX(angle)</code></strong>: Rotar el objeto alrededor del eje X.</li>
+<li><strong><code>rotateY(angle)</code></strong>: Rotar el objeto alrededor del eje Y.</li>
+<li><strong><code>rotateZ(angle)</code></strong>: Rotar el objeto alrededor del eje Z.</li>
+<li><strong><code>scale.set(x, y, z)</code></strong>: Establecer el escalado en los tres ejes.</li>
+</ul>
+<p><strong>Ejemplo: Aplicar Transformaciones Usando Métodos</strong></p>
+<pre><code class="language-javascript">// Trasladar
+cubo.translateX(1); // Mover 1 unidad a la derecha
+
+// Rotar
+cubo.rotateY(Math.PI / 4); // Rotar 45 grados alrededor del eje Y
+
+// Escalar
+cubo.scale.set(1.5, 1.5, 1.5); // Escalar al 150% en todos los ejes
+</code></pre>
+<h3 id="64-agrupar-objetos-threegroup">6.4 Agrupar Objetos (<code>THREE.Group</code>)</h3>
+<p>La agrupación de objetos permite manejar múltiples mallas como una sola entidad, facilitando su manipulación conjunta. Esto es útil para crear estructuras complejas o para aplicar transformaciones a múltiples objetos simultáneamente.</p>
+<h4 id="641-crear-y-utilizar-un-grupo">6.4.1 Crear y Utilizar un Grupo</h4>
+<p><strong>Sintaxis Básica:</strong></p>
+<pre><code class="language-javascript">const grupo = new THREE.Group();
+grupo.add(objeto1);
+grupo.add(objeto2);
+escena.add(grupo);
+</code></pre>
+<p><strong>Ejemplo: Agrupar Dos Cubos de Colores Diferentes</strong></p>
+<pre><code class="language-javascript">// 1. Crear la geometría y materiales para dos cubos
+const geometriaCubo = new THREE.BoxGeometry(1, 1, 1);
+const materialRojo = new THREE.MeshBasicMaterial({ color: 0xff0000 }); // Rojo
+const materialAzul = new THREE.MeshBasicMaterial({ color: 0x0000ff }); // Azul
+
+// 2. Crear dos mallas
+const cuboRojo = new THREE.Mesh(geometriaCubo, materialRojo);
+const cuboAzul = new THREE.Mesh(geometriaCubo, materialAzul);
+
+// 3. Posicionar los cubos
+cuboRojo.position.x = -1.5; // A la izquierda
+cuboAzul.position.x = 1.5; // A la derecha
+
+// 4. Crear un grupo y añadir los cubos
+const grupoCubos = new THREE.Group();
+grupoCubos.add(cuboRojo);
+grupoCubos.add(cuboAzul);
+
+// 5. Añadir el grupo a la escena
+escena.add(grupoCubos);
+
+// 6. Aplicar una transformación al grupo (por ejemplo, rotación)
+function animar() {
+    requestAnimationFrame(animar);
+
+    grupoCubos.rotation.y += 0.01; // Rotar el grupo alrededor del eje Y
+
+    renderizador.render(escena, camara);
+}
+
+animar();
+</code></pre>
+<p><strong>Resultado Esperado:</strong></p>
+<p>Dos cubos (uno rojo y otro azul) agrupados y rotando juntos alrededor del eje Y.</p>
+<h4 id="643-anidar-grupos">6.4.3 Anidar Grupos</h4>
+<p>Los grupos pueden contener otros grupos, permitiendo una jerarquía de objetos. Esto es útil para estructuras complejas donde diferentes partes tienen transformaciones independientes.</p>
+<p><strong>Ejemplo: Grupo con Subgrupos</strong></p>
+<pre><code class="language-javascript">// Crear grupos principales
+const grupoPrincipal = new THREE.Group();
+const subgrupoIzquierdo = new THREE.Group();
+const subgrupoDerecho = new THREE.Group();
+
+// Crear mallas para cada subgrupo
+const cuboVerde = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshBasicMaterial({ color: 0x00ff00 }));
+const cuboAmarillo = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshBasicMaterial({ color: 0xffff00 }));
+
+// Añadir mallas a los subgrupos
+subgrupoIzquierdo.add(cuboVerde);
+subgrupoDerecho.add(cuboAmarillo);
+
+// Posicionar los subgrupos
+subgrupoIzquierdo.position.x = -2;
+subgrupoDerecho.position.x = 2;
+
+// Añadir subgrupos al grupo principal
+grupoPrincipal.add(subgrupoIzquierdo);
+grupoPrincipal.add(subgrupoDerecho);
+
+// Añadir el grupo principal a la escena
+escena.add(grupoPrincipal);
+
+// Aplicar transformaciones al grupo principal
+function animar() {
+    requestAnimationFrame(animar);
+
+    grupoPrincipal.rotation.y += 0.005; // Rotar el grupo principal
+    subgrupoIzquierdo.rotation.x += 0.01; // Rotar subgrupo izquierdo
+    subgrupoDerecho.rotation.z += 0.01; // Rotar subgrupo derecho
+
+    renderizador.render(escena, camara);
+}
+
+animar();
+</code></pre>
+<p><strong>Resultado Esperado:</strong></p>
+<p>Un grupo principal rotando lentamente alrededor del eje Y, mientras que cada subgrupo (cada uno con un cubo de color diferente) rota de manera independiente alrededor de sus propios ejes.</p>
+<h3 id="65-manipulacion-dinamica-de-objetos">6.5 Manipulación Dinámica de Objetos</h3>
+<p>Además de las transformaciones estáticas, es posible manipular objetos de manera dinámica en respuesta a eventos del usuario o a otras condiciones en tiempo real.</p>
+<h4 id="651-escuchar-eventos-del-usuario">6.5.1 Escuchar Eventos del Usuario</h4>
+<p>Puedes modificar las propiedades de los objetos en respuesta a eventos como clics, movimientos del ratón, o entradas del teclado.</p>
+<p><strong>Ejemplo: Cambiar el Color de un Cubo al Hacer Clic</strong></p>
+<pre><code class="language-javascript">// 1. Crear el cubo con MeshStandardMaterial para que pueda reaccionar a la luz
+const materialCubo = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
+const cuboInteractivo = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), materialCubo);
+escena.add(cuboInteractivo);
+
+// 2. Añadir una luz para que el material reaccione a la iluminación
+const luzPuntual = new THREE.PointLight(0xffffff, 1);
+luzPuntual.position.set(5, 5, 5);
+escena.add(luzPuntual);
+
+// 3. Detectar clics en el cubo
+window.addEventListener('click', () =&gt; {
+    // Generar un color aleatorio
+    const colorAleatorio = Math.random() * 0xffffff;
+    cuboInteractivo.material.color.set(colorAleatorio);
+});
+</code></pre>
+<p><strong>Resultado Esperado:</strong></p>
+<p>Al hacer clic en cualquier parte de la ventana, el cubo cambiará a un color aleatorio.</p>
+<h4 id="652-animaciones-basadas-en-eventos">6.5.2 Animaciones Basadas en Eventos</h4>
+<p>Puedes crear animaciones que respondan a eventos específicos, como mover un objeto cuando el usuario presiona una tecla.</p>
+<p><strong>Ejemplo: Mover un Cubo hacia Arriba al Presionar la Tecla "W"</strong></p>
+<pre><code class="language-javascript">// 1. Crear el cubo
+const geometriaCubo = new THREE.BoxGeometry(1, 1, 1);
+const materialCubo = new THREE.MeshStandardMaterial({ color: 0x0000ff });
+const cuboMovil = new THREE.Mesh(geometriaCubo, materialCubo);
+escena.add(cuboMovil);
+
+// 2. Añadir una luz
+const luzDireccional = new THREE.DirectionalLight(0xffffff, 1);
+luzDireccional.position.set(5, 10, 7.5);
+escena.add(luzDireccional);
+
+// 3. Escuchar eventos de teclado
+window.addEventListener('keydown', (evento) =&gt; {
+    const velocidad = 0.1;
+    switch(evento.key.toLowerCase()) {
+        case 'w':
+            cuboMovil.position.y += velocidad; // Mover hacia arriba
+            break;
+        case 's':
+            cuboMovil.position.y -= velocidad; // Mover hacia abajo
+            break;
+        case 'a':
+            cuboMovil.position.x -= velocidad; // Mover hacia la izquierda
+            break;
+        case 'd':
+            cuboMovil.position.x += velocidad; // Mover hacia la derecha
+            break;
+        default:
+            break;
+    }
+});
+</code></pre>
+<p><strong>Resultado Esperado:</strong></p>
+<p>Al presionar las teclas "W", "A", "S" o "D", el cubo se moverá hacia arriba, izquierda, abajo o derecha, respectivamente.</p>
+<h3 id="66-creacion-de-objetos-compuestos">6.6 Creación de Objetos Compuestos</h3>
+<p>A menudo, necesitarás crear objetos más complejos combinando múltiples mallas y formas. Esto se logra utilizando grupos y jerarquías de objetos.</p>
+<h4 id="661-ejemplo-crear-un-robot-basico">6.6.1 Ejemplo: Crear un Robot Básico</h4>
+<p>A continuación, se muestra cómo crear una estructura simple que representa un robot utilizando diferentes mallas agrupadas.</p>
+<pre><code class="language-javascript">// 1. Crear el grupo principal del robot
+const robot = new THREE.Group();
+
+// 2. Crear la cabeza
+const geometriaCabeza = new THREE.BoxGeometry(1, 1, 1);
+const materialCabeza = new THREE.MeshStandardMaterial({ color: 0xffd700 }); // Dorado
+const cabeza = new THREE.Mesh(geometriaCabeza, materialCabeza);
+cabeza.position.y = 2; // Posicionar la cabeza arriba del cuerpo
+
+// 3. Crear el cuerpo
+const geometriaCuerpo = new THREE.BoxGeometry(2, 2, 1);
+const materialCuerpo = new THREE.MeshStandardMaterial({ color: 0x00bfff }); // Azul
+const cuerpo = new THREE.Mesh(geometriaCuerpo, materialCuerpo);
+cuerpo.position.y = 0;
+
+// 4. Crear los brazos
+const geometriaBrazo = new THREE.BoxGeometry(0.5, 2, 0.5);
+const materialBrazo = new THREE.MeshStandardMaterial({ color: 0x8b4513 }); // Marrón
+const brazoIzquierdo = new THREE.Mesh(geometriaBrazo, materialBrazo);
+const brazoDerecho = new THREE.Mesh(geometriaBrazo, materialBrazo);
+brazoIzquierdo.position.set(-1.5, 1, 0); // Posicionar a la izquierda
+brazoDerecho.position.set(1.5, 1, 0); // Posicionar a la derecha
+
+// 5. Crear las piernas
+const geometriaPierna = new THREE.BoxGeometry(0.5, 2, 0.5);
+const materialPierna = new THREE.MeshStandardMaterial({ color: 0x2e8b57 }); // Verde
+const piernaIzquierda = new THREE.Mesh(geometriaPierna, materialPierna);
+const piernaDerecha = new THREE.Mesh(geometriaPierna, materialPierna);
+piernaIzquierda.position.set(-0.5, -2, 0); // Posicionar a la izquierda
+piernaDerecha.position.set(0.5, -2, 0); // Posicionar a la derecha
+
+// 6. Añadir todas las partes al grupo del robot
+robot.add(cabeza);
+robot.add(cuerpo);
+robot.add(brazoIzquierdo);
+robot.add(brazoDerecho);
+robot.add(piernaIzquierda);
+robot.add(piernaDerecha);
+
+// 7. Añadir el robot a la escena
+escena.add(robot);
+
+// 8. Función de animación para rotar el robot
+function animar() {
+    requestAnimationFrame(animar);
+
+    // Rotar todo el robot
+    robot.rotation.y += 0.01;
+
+    renderizador.render(escena, camara);
+}
+
+animar();
+</code></pre>
+<p><strong>Resultado Esperado:</strong></p>
+<p>Un robot básico compuesto por una cabeza, cuerpo, brazos y piernas, rotando lentamente alrededor del eje Y.</p>
+<h3 id="67-manipulacion-de-mallas-individuales-dentro-de-un-grupo">6.7 Manipulación de Mallas Individuales Dentro de un Grupo</h3>
+<p>Cuando trabajas con grupos, puedes manipular individualmente las mallas dentro del grupo sin afectar al resto de los objetos.</p>
+<p><strong>Ejemplo: Hacer que los Brazos del Robot Se Muevan Independientemente</strong></p>
+<pre><code class="language-javascript">// Suponiendo que ya tienes el grupo 'robot' con 'brazoIzquierdo' y 'brazoDerecho'
+
+// 1. Crear una función para mover los brazos
+function moverBrazos() {
+    brazoIzquierdo.rotation.z = Math.sin(Date.now() * 0.005) * 0.5;
+    brazoDerecho.rotation.z = Math.cos(Date.now() * 0.005) * 0.5;
+}
+
+// 2. Actualizar la función de animación
+function animar() {
+    requestAnimationFrame(animar);
+
+    // Rotar todo el robot
+    robot.rotation.y += 0.01;
+
+    // Mover los brazos
+    moverBrazos();
+
+    renderizador.render(escena, camara);
+}
+
+animar();
+</code></pre>
+<p><strong>Resultado Esperado:</strong></p>
+<p>Mientras el robot rota, los brazos se mueven de manera independiente, simulando un movimiento de balanceo.</p>
+<h3 id="68-mejores-practicas">6.8 Mejores Prácticas</h3>
+<p><strong>Uso de Helpers para Depuración:</strong>
+Utiliza helpers como <code>THREE.AxesHelper</code>, <code>THREE.GridHelper</code> o <code>THREE.CameraHelper</code> para visualizar e inspeccionar la orientación y posición de objetos y cámaras durante el desarrollo.</p>
+<p><strong>Ejemplo: Añadir un AxesHelper y un GridHelper</strong></p>
+<pre><code class="language-javascript">   const axesHelper = new THREE.AxesHelper(5);
+   escena.add(axesHelper);
+
+   // Añadir un GridHelper para visualizar una cuadrícula en el suelo
+   const gridHelper = new THREE.GridHelper(20, 20);
+   gridHelper.position.y = -1; // Posicionar al nivel del suelo
+   escena.add(gridHelper);
+</code></pre>
+<h3 id="69-ejemplo-completo-escena-con-mallas-transformaciones-y-agrupacion">6.9 Ejemplo Completo: Escena con Mallas, Transformaciones y Agrupación</h3>
+<p>A continuación, se presenta un ejemplo que integra todos los conceptos abordados en este tema, creando una escena con múltiples mallas, aplicando transformaciones y organizándolas en grupos.</p>
+<h4 id="691-estructura-de-carpetas">6.9.1 Estructura de Carpetas</h4>
+<pre><code>mi-escena-objetos-threejs/
+├── index.html
+└── js/
+    └── three.min.js
+</code></pre>
+<h4 id="692-contenido-de-indexhtml">6.9.2 Contenido de <code>index.html</code></h4>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Creación y Manipulación de Objetos en Three.js&lt;/title&gt;
+    &lt;style&gt;
+        body { margin: 0; }
+        canvas { display: block; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Enlace a Three.js --&gt;
+    &lt;script src=&quot;js/three.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+        // 1. Crear la escena
+        const escena = new THREE.Scene();
+        escena.background = new THREE.Color(0xeeeeee);
+
+        // 2. Crear la cámara
+        const camara = new THREE.PerspectiveCamera(
+            75,
+            window.innerWidth / window.innerHeight,
+            0.1,
+            1000
+        );
+        camara.position.set(0, 5, 10);
+        camara.lookAt(0, 0, 0);
+
+        // 3. Crear el renderizador
+        const renderizador = new THREE.WebGLRenderer({ antialias: true });
+        renderizador.setSize(window.innerWidth, window.innerHeight);
+        renderizador.shadowMap.enabled = true; // Habilitar sombras
+        renderizador.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.body.appendChild(renderizador.domElement);
+
+        // 4. Añadir una luz ambiental
+        const ambientLight = new THREE.AmbientLight(0x404040, 1); // Luz ambiental suave
+        escena.add(ambientLight);
+
+        // 5. Añadir una luz direccional
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(5, 10, 7.5);
+        directionalLight.castShadow = true; // La luz proyecta sombras
+
+        // Configuración de sombras para la luz direccional
+        directionalLight.shadow.mapSize.width = 1024;
+        directionalLight.shadow.mapSize.height = 1024;
+        directionalLight.shadow.camera.near = 0.5;
+        directionalLight.shadow.camera.far = 50;
+        directionalLight.shadow.camera.left = -10;
+        directionalLight.shadow.camera.right = 10;
+        directionalLight.shadow.camera.top = 10;
+        directionalLight.shadow.camera.bottom = -10;
+
+        escena.add(directionalLight);
+
+        // 6. Crear un grupo de cubos rotatorios
+        const grupoCubos = new THREE.Group();
+
+        // Crear varias mallas de cubos con diferentes colores
+        const colores = [0xff0000, 0x00ff00, 0x0000ff, 0xffff00, 0xff00ff];
+        colores.forEach((color, index) =&gt; {
+            const geometria = new THREE.BoxGeometry(1, 1, 1);
+            const material = new THREE.MeshStandardMaterial({ color: color });
+            const cubo = new THREE.Mesh(geometria, material);
+            cubo.position.x = (index - 2) * 2; // Espaciarlos a lo largo del eje X
+            cubo.castShadow = true;
+            cubo.receiveShadow = true;
+            grupoCubos.add(cubo);
+        });
+
+        escena.add(grupoCubos);
+
+        // 7. Crear el suelo que recibe sombras
+        const sueloGeometria = new THREE.PlaneGeometry(20, 20);
+        const sueloMaterial = new THREE.MeshStandardMaterial({ color: 0x808080 });
+        const suelo = new THREE.Mesh(sueloGeometria, sueloMaterial);
+        suelo.rotation.x = -Math.PI / 2; // Rotar para que quede horizontal
+        suelo.position.y = -1;
+        suelo.receiveShadow = true;
+        escena.add(suelo);
+
+        // 8. Crear helpers para depuración
+        const axesHelper = new THREE.AxesHelper(5);
+        escena.add(axesHelper);
+
+        const gridHelper = new THREE.GridHelper(20, 20);
+        gridHelper.position.y = -1;
+        escena.add(gridHelper);
+
+        // 9. Función de animación
+        function animar() {
+            requestAnimationFrame(animar);
+
+            // Rotar el grupo de cubos
+            grupoCubos.rotation.y += 0.01;
+
+            // Rotar cada cubo individualmente
+            grupoCubos.children.forEach((cubo, index) =&gt; {
+                cubo.rotation.x += 0.02;
+                cubo.rotation.y += 0.02;
+            });
+
+            renderizador.render(escena, camara);
+        }
+
+        animar();
+
+        // 10. Manejar el redimensionamiento de la ventana
+        window.addEventListener('resize', () =&gt; {
+            const ancho = window.innerWidth;
+            const alto = window.innerHeight;
+
+            renderizador.setSize(ancho, alto);
+            camara.aspect = ancho / alto;
+            camara.updateProjectionMatrix();
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><strong>Explicación del Código:</strong></p>
+<ol>
+<li><strong>Escena y Cámara:</strong></li>
+<li>Se crea una escena con un fondo gris claro.</li>
+<li>Se configura una <code>PerspectiveCamera</code> con un campo de visión de 75 grados, una relación de aspecto basada en el tamaño de la ventana y planos de recorte cercanos y lejanos de 0.1 y 1000, respectivamente.</li>
+<li>
+<p>La cámara se posiciona en <code>(0, 5, 10)</code> y mira hacia el centro de la escena.</p>
+</li>
+<li>
+<p><strong>Renderizador:</strong></p>
+</li>
+<li>Se crea un <code>WebGLRenderer</code> con antialiasing habilitado para suavizar los bordes de los objetos.</li>
+<li>Se habilitan las sombras y se configura el tipo de sombra (<code>PCFSoftShadowMap</code>) para obtener sombras más suaves.</li>
+<li>
+<p>El renderizador se ajusta al tamaño de la ventana y se añade al documento HTML.</p>
+</li>
+<li>
+<p><strong>Iluminación:</strong></p>
+</li>
+<li><strong>AmbientLight:</strong> Proporciona una iluminación base suave en toda la escena.</li>
+<li>
+<p><strong>DirectionalLight:</strong> Simula una luz direccional (como el sol), posicionada en <code>(5, 10, 7.5)</code> y configurada para proyectar sombras. Se ajustan sus propiedades de sombra para mejorar la calidad visual.</p>
+</li>
+<li>
+<p><strong>Grupo de Cubos:</strong></p>
+</li>
+<li>Se crea un grupo (<code>THREE.Group</code>) que contiene varios cubos de diferentes colores.</li>
+<li>Cada cubo se posiciona a lo largo del eje X para espaciarlo.</li>
+<li>Los cubos están configurados para proyectar y recibir sombras.</li>
+<li>
+<p>El grupo completo se añade a la escena.</p>
+</li>
+<li>
+<p><strong>Suelo:</strong></p>
+</li>
+<li>Se crea un plano grande que actúa como suelo, rotado para quedar horizontal y posicionado debajo de los cubos.</li>
+<li>
+<p>El suelo está configurado para recibir sombras.</p>
+</li>
+<li>
+<p><strong>Helpers para Depuración:</strong></p>
+</li>
+<li><strong>AxesHelper:</strong> Visualiza los ejes X, Y y Z en la escena.</li>
+<li>
+<p><strong>GridHelper:</strong> Muestra una cuadrícula en el suelo para facilitar la percepción de la escala y la posición de los objetos.</p>
+</li>
+<li>
+<p><strong>Animación:</strong></p>
+</li>
+<li>Se define una función <code>animar</code> que rota el grupo de cubos alrededor del eje Y y, además, rota cada cubo individualmente alrededor de sus ejes X e Y.</li>
+<li>
+<p>La función se llama en cada frame utilizando <code>requestAnimationFrame</code> para crear una animación fluida.</p>
+</li>
+<li>
+<p><strong>Redimensionamiento:</strong></p>
+</li>
+<li>Se añade un evento que ajusta el tamaño del renderizador y la cámara cuando la ventana cambia de tamaño, manteniendo la proporción y la calidad visual.</li>
+</ol>
+<p><strong>Resultado Esperado:</strong></p>
+<p>Una escena con varios cubos de colores diferentes agrupados y rotando juntos alrededor del eje Y, mientras que cada cubo también rota individualmente. El suelo y los helpers proporcionan una referencia visual clara de la orientación y escala de los objetos.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>

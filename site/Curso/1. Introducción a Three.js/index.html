@@ -1,0 +1,1029 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+        <link rel="next" href="../2.%20Estructura%20B%C3%A1sica%20de%20una%20Escena%20en%20Three.js/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.41">
+    
+    
+      
+        <title>1. Introducción a Three.js - Guia de modelado 3D</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#11-que-es-threejs" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Guia de modelado 3D" class="md-header__button md-logo" aria-label="Guia de modelado 3D" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Guia de modelado 3D
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1. Introducción a Three.js
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Guia de modelado 3D" class="md-nav__button md-logo" aria-label="Guia de modelado 3D" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Guia de modelado 3D
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    curso
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            curso
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    1. Introducción a Three.js
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    1. Introducción a Three.js
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#11-que-es-threejs" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 ¿Qué es Three.js?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-instalacion-y-configuracion-basica" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Instalación y configuración básica
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2 Instalación y configuración básica">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-metodos-de-instalacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2.1 Métodos de instalación
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-requisitos-del-entorno" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2.2 Requisitos del entorno
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-preparacion-del-entorno-html-javascript-y-nodejs-si-se-requiere" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 Preparación del entorno: HTML, JavaScript y Node.js (si se requiere)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 Preparación del entorno: HTML, JavaScript y Node.js (si se requiere)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131-proyecto-basico-con-html-y-javascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3.1 Proyecto básico con HTML y JavaScript
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132-proyecto-avanzado-con-nodejs-y-modulos-es6" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3.2 Proyecto avanzado con Node.js y módulos ES6
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.%20Estructura%20B%C3%A1sica%20de%20una%20Escena%20en%20Three.js/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Estructura Básica de una Escena en Three.js
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.%20Geometr%C3%ADas%20y%20Materiales/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Geometrías y Materiales
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4.%20Luces%20en%20Three.js/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Luces en Three.js
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.%20C%C3%A1maras%20y%20Control%20de%20la%20C%C3%A1mara/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Cámaras y Control de la Cámara
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.%20Creaci%C3%B3n%20y%20Manipulaci%C3%B3n%20de%20Objetos%203D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Creación y Manipulación de Objetos 3D
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#11-que-es-threejs" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 ¿Qué es Three.js?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-instalacion-y-configuracion-basica" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Instalación y configuración básica
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2 Instalación y configuración básica">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-metodos-de-instalacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2.1 Métodos de instalación
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-requisitos-del-entorno" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2.2 Requisitos del entorno
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-preparacion-del-entorno-html-javascript-y-nodejs-si-se-requiere" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 Preparación del entorno: HTML, JavaScript y Node.js (si se requiere)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 Preparación del entorno: HTML, JavaScript y Node.js (si se requiere)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131-proyecto-basico-con-html-y-javascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3.1 Proyecto básico con HTML y JavaScript
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132-proyecto-avanzado-con-nodejs-y-modulos-es6" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3.2 Proyecto avanzado con Node.js y módulos ES6
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>1. Introducción a Three.js</h1>
+
+<h3 id="11-que-es-threejs">1.1 ¿Qué es Three.js?</h3>
+<p><strong>Three.js</strong> es una biblioteca de JavaScript que facilita la creación y visualización de gráficos 3D en el navegador web utilizando WebGL. WebGL es una API de JavaScript que permite renderizar gráficos interactivos en 2D y 3D sin necesidad de plugins adicionales. Sin embargo, trabajar directamente con WebGL puede ser complejo debido a su bajo nivel. Aquí es donde Three.js entra en juego, proporcionando una abstracción más amigable y simplificando tareas comunes como la creación de escenas, cámaras, luces y objetos 3D.</p>
+<h3 id="12-instalacion-y-configuracion-basica">1.2 Instalación y configuración básica</h3>
+<p>Para comenzar a trabajar con Three.js, es necesario configurar un entorno de desarrollo adecuado. A continuación, se detallan los pasos para instalar y configurar Three.js tanto de manera local como utilizando un gestor de paquetes como npm.</p>
+<h4 id="121-metodos-de-instalacion">1.2.1 Métodos de instalación</h4>
+<p>Existen varias formas de incluir Three.js en tu proyecto:</p>
+<ol>
+<li><strong>Uso de un CDN (Content Delivery Network):</strong>
+   Esta es la forma más sencilla de empezar, ideal para proyectos pequeños o para probar rápidamente.</li>
+</ol>
+<pre><code class="language-html">   &lt;!DOCTYPE html&gt;
+   &lt;html lang=&quot;es&quot;&gt;
+   &lt;head&gt;
+       &lt;meta charset=&quot;UTF-8&quot;&gt;
+       &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+       &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+       &lt;title&gt;Three.js con CDN&lt;/title&gt;
+   &lt;/head&gt;
+   &lt;body&gt;
+       &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js&quot;&gt;&lt;/script&gt;
+       &lt;script&gt;
+           // Código Three.js aquí
+           const scene = new THREE.Scene();
+           const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+           const renderer = new THREE.WebGLRenderer();
+           renderer.setSize(window.innerWidth, window.innerHeight);
+           document.body.appendChild(renderer.domElement);
+
+           const geometry = new THREE.BoxGeometry();
+           const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+           const cube = new THREE.Mesh(geometry, material);
+           scene.add(cube);
+
+           camera.position.z = 5;
+
+           function animate() {
+               requestAnimationFrame(animate);
+               cube.rotation.x += 0.01;
+               cube.rotation.y += 0.01;
+               renderer.render(scene, camera);
+           }
+
+           animate();
+       &lt;/script&gt;
+   &lt;/body&gt;
+   &lt;/html&gt;
+   ```
+
+2. **Descarga directa de Three.js:**
+   Puedes descargar el archivo `three.min.js` desde el [sitio oficial de Three.js](https://threejs.org/) y enlazarlo localmente en tu proyecto.
+
+   - Descarga el archivo desde [Three.js Builds](https://threejs.org/build/).
+   - Coloca el archivo en una carpeta de tu proyecto, por ejemplo, `js/`.
+   - Enlázalo en tu HTML:
+
+```html
+     &lt;script src=&quot;js/three.min.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<ol>
+<li>
+<p><strong>Uso de npm (Node Package Manager):</strong>
+   Ideal para proyectos más grandes y que requieren gestión de dependencias.</p>
+</li>
+<li>
+<p><strong>Paso 1:</strong> Inicializa un proyecto npm si aún no lo has hecho.</p>
+<p><code>bash
+ npm init -y</code></p>
+</li>
+<li>
+<p><strong>Paso 2:</strong> Instala Three.js.</p>
+<p><code>bash
+ npm install three</code></p>
+</li>
+<li>
+<p><strong>Paso 3:</strong> Configura tu proyecto para usar módulos ES6 o una herramienta de empaquetado como Webpack.</p>
+</li>
+<li>
+<p><strong>Ejemplo de uso con módulos ES6:</strong></p>
+</li>
+</ol>
+<pre><code class="language-javascript">     // main.js
+     import * as THREE from 'three';
+
+     const scene = new THREE.Scene();
+     const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+     const renderer = new THREE.WebGLRenderer();
+     renderer.setSize(window.innerWidth, window.innerHeight);
+     document.body.appendChild(renderer.domElement);
+
+     const geometry = new THREE.BoxGeometry();
+     const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+     const cube = new THREE.Mesh(geometry, material);
+     scene.add(cube);
+
+     camera.position.z = 5;
+
+     function animate() {
+         requestAnimationFrame(animate);
+         cube.rotation.x += 0.01;
+         cube.rotation.y += 0.01;
+         renderer.render(scene, camera);
+     }
+
+     animate();
+</code></pre>
+<ul>
+<li>
+<p><strong>Configura un servidor de desarrollo:</strong> Puedes usar herramientas como <code>webpack-dev-server</code> o <code>vite</code> para servir tu proyecto.</p>
+<p><code>bash
+ npm install --save-dev webpack webpack-cli webpack-dev-server</code></p>
+</li>
+</ul>
+<h4 id="122-requisitos-del-entorno">1.2.2 Requisitos del entorno</h4>
+<ul>
+<li><strong>Servidor local (opcional pero recomendado):</strong> Algunos navegadores imponen restricciones al cargar archivos locales (por ejemplo, texturas). Usar un servidor local evita estos problemas. Puedes usar extensiones como Live Server en Visual Studio Code o herramientas como <code>http-server</code> de npm.</li>
+</ul>
+<p><code>bash
+  npm install -g http-server
+  http-server</code></p>
+<ul>
+<li><strong>Node.js y npm (si usas gestores de paquetes):</strong> Para proyectos que requieran empaquetadores, gestores de dependencias u otras herramientas, asegúrate de tener Node.js y npm instalados. Puedes descargarlos desde <a href="https://nodejs.org/">nodejs.org</a>.</li>
+</ul>
+<h3 id="13-preparacion-del-entorno-html-javascript-y-nodejs-si-se-requiere">1.3 Preparación del entorno: HTML, JavaScript y Node.js (si se requiere)</h3>
+<p>A continuación, se detalla cómo preparar un entorno básico para trabajar con Three.js, tanto si decides usar un enfoque sencillo con HTML y JavaScript puro como si optas por un entorno más avanzado utilizando Node.js y módulos ES6.</p>
+<h4 id="131-proyecto-basico-con-html-y-javascript">1.3.1 Proyecto básico con HTML y JavaScript</h4>
+<p>Este enfoque es ideal para principiantes y proyectos pequeños.</p>
+<ol>
+<li><strong>Estructura de carpetas:</strong></li>
+</ol>
+<pre><code>   mi-proyecto-threejs/
+   ├── index.html
+   └── js/
+       └── three.min.js
+</code></pre>
+<ol>
+<li><strong>Contenido de <code>index.html</code>:</strong></li>
+</ol>
+<pre><code class="language-html">   &lt;!DOCTYPE html&gt;
+   &lt;html lang=&quot;es&quot;&gt;
+   &lt;head&gt;
+       &lt;meta charset=&quot;UTF-8&quot;&gt;
+       &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+       &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+       &lt;title&gt;Mi Primera Escena con Three.js&lt;/title&gt;
+       &lt;style&gt;
+           body { margin: 0; }
+           canvas { display: block; }
+       &lt;/style&gt;
+   &lt;/head&gt;
+   &lt;body&gt;
+       &lt;!-- Enlace a Three.js --&gt;
+       &lt;script src=&quot;js/three.min.js&quot;&gt;&lt;/script&gt;
+       &lt;script&gt;
+           // Crear la escena
+           const scene = new THREE.Scene();
+
+           // Crear la cámara
+           const camera = new THREE.PerspectiveCamera(
+               75, // Campo de visión
+               window.innerWidth / window.innerHeight, // Aspect ratio
+               0.1, // Near clipping plane
+               1000 // Far clipping plane
+           );
+
+           // Crear el renderizador
+           const renderer = new THREE.WebGLRenderer();
+           renderer.setSize(window.innerWidth, window.innerHeight);
+           document.body.appendChild(renderer.domElement);
+
+           // Crear un cubo
+           const geometry = new THREE.BoxGeometry();
+           const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+           const cube = new THREE.Mesh(geometry, material);
+           scene.add(cube);
+
+           // Posicionar la cámara
+           camera.position.z = 5;
+
+           // Función de animación
+           function animate() {
+               requestAnimationFrame(animate);
+
+               // Rotar el cubo
+               cube.rotation.x += 0.01;
+               cube.rotation.y += 0.01;
+
+               // Renderizar la escena
+               renderer.render(scene, camera);
+           }
+
+           animate();
+
+           // Manejar el redimensionamiento de la ventana
+           window.addEventListener('resize', () =&gt; {
+               const width = window.innerWidth;
+               const height = window.innerHeight;
+               renderer.setSize(width, height);
+               camera.aspect = width / height;
+               camera.updateProjectionMatrix();
+           });
+       &lt;/script&gt;
+   &lt;/body&gt;
+   &lt;/html&gt;
+</code></pre>
+<ol>
+<li>
+<p><strong>Ejecutar el proyecto:</strong></p>
+</li>
+<li>
+<p>Abre el archivo <code>index.html</code> en tu navegador.</p>
+</li>
+<li>Deberías ver un cubo verde girando en el centro de la pantalla.</li>
+</ol>
+<h4 id="132-proyecto-avanzado-con-nodejs-y-modulos-es6">1.3.2 Proyecto avanzado con Node.js y módulos ES6</h4>
+<p>Este enfoque es más adecuado para proyectos complejos que requieren una estructura modular, empaquetado y herramientas de desarrollo avanzadas.</p>
+<ol>
+<li><strong>Inicializar el proyecto:</strong></li>
+</ol>
+<pre><code class="language-bash">   mkdir mi-proyecto-threejs
+   cd mi-proyecto-threejs
+   npm init -y
+</code></pre>
+<ol>
+<li><strong>Instalar Three.js y otras dependencias (opcional):</strong></li>
+</ol>
+<p><code>bash
+   npm install three</code></p>
+<ol>
+<li>
+<p><strong>Configurar herramientas de desarrollo:</strong></p>
+</li>
+<li>
+<p><strong>Uso de Webpack (opcional pero recomendado):</strong></p>
+<p><code>bash
+ npm install --save-dev webpack webpack-cli webpack-dev-server</code></p>
+</li>
+<li>
+<p><strong>Crear archivos de configuración:</strong></p>
+<ul>
+<li><strong><code>webpack.config.js</code>:</strong></li>
+</ul>
+</li>
+</ol>
+<pre><code class="language-javascript">       const path = require('path');
+
+       module.exports = {
+           entry: './src/index.js',
+           output: {
+               filename: 'bundle.js',
+               path: path.resolve(__dirname, 'dist'),
+           },
+           devServer: {
+               contentBase: path.join(__dirname, 'dist'),
+               compress: true,
+               port: 9000,
+           },
+           module: {
+               rules: [
+                   {
+                       test: /\.js$/,
+                       exclude: /node_modules/,
+                       use: {
+                           loader: 'babel-loader',
+                           options: {
+                               presets: ['@babel/preset-env'],
+                           },
+                       },
+                   },
+               ],
+           },
+           mode: 'development',
+       };
+</code></pre>
+<ul>
+<li>
+<p><strong>Instalar Babel (para compatibilidad):</strong></p>
+<p><code>bash
+   npm install --save-dev babel-loader @babel/core @babel/preset-env</code></p>
+<ul>
+<li><strong>Crear <code>.babelrc</code>:</strong></li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-json">       {
+           &quot;presets&quot;: [&quot;@babel/preset-env&quot;]
+       }
+</code></pre>
+<ol>
+<li><strong>Estructura de carpetas:</strong></li>
+</ol>
+<pre><code>   mi-proyecto-threejs/
+   ├── dist/
+   │   └── index.html
+   ├── src/
+   │   └── index.js
+   ├── package.json
+   ├── webpack.config.js
+   └── .babelrc
+</code></pre>
+<ol>
+<li><strong>Contenido de <code>src/index.js</code>:</strong></li>
+</ol>
+<pre><code class="language-javascript">   import * as THREE from 'three';
+
+   // Crear la escena
+   const scene = new THREE.Scene();
+
+   // Crear la cámara
+   const camera = new THREE.PerspectiveCamera(
+       75,
+       window.innerWidth / window.innerHeight,
+       0.1,
+       1000
+   );
+
+   // Crear el renderizador
+   const renderer = new THREE.WebGLRenderer({ antialias: true });
+   renderer.setSize(window.innerWidth, window.innerHeight);
+   document.body.appendChild(renderer.domElement);
+
+   // Crear un cubo
+   const geometry = new THREE.BoxGeometry();
+   const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+   const cube = new THREE.Mesh(geometry, material);
+   scene.add(cube);
+
+   // Posicionar la cámara
+   camera.position.z = 5;
+
+   // Función de animación
+   function animate() {
+       requestAnimationFrame(animate);
+
+       // Rotar el cubo
+       cube.rotation.x += 0.01;
+       cube.rotation.y += 0.01;
+
+       // Renderizar la escena
+       renderer.render(scene, camera);
+   }
+
+   animate();
+
+   // Manejar el redimensionamiento de la ventana
+   window.addEventListener('resize', () =&gt; {
+       const width = window.innerWidth;
+       const height = window.innerHeight;
+       renderer.setSize(width, height);
+       camera.aspect = width / height;
+       camera.updateProjectionMatrix();
+   });
+</code></pre>
+<ol>
+<li><strong>Contenido de <code>dist/index.html</code>:</strong></li>
+</ol>
+<pre><code class="language-html">   &lt;!DOCTYPE html&gt;
+   &lt;html lang=&quot;es&quot;&gt;
+   &lt;head&gt;
+       &lt;meta charset=&quot;UTF-8&quot;&gt;
+       &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+       &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+       &lt;title&gt;Mi Proyecto Three.js&lt;/title&gt;
+       &lt;style&gt;
+           body { margin: 0; }
+           canvas { display: block; }
+       &lt;/style&gt;
+   &lt;/head&gt;
+   &lt;body&gt;
+       &lt;script src=&quot;bundle.js&quot;&gt;&lt;/script&gt;
+   &lt;/body&gt;
+   &lt;/html&gt;
+   ```
+
+7. **Agregar scripts al `package.json`:**
+
+   ```json
+   &quot;scripts&quot;: {
+       &quot;start&quot;: &quot;webpack serve --open&quot;,
+       &quot;build&quot;: &quot;webpack&quot;
+   }
+</code></pre>
+<ol>
+<li>
+<p><strong>Ejecutar el proyecto:</strong></p>
+</li>
+<li>
+<p>Inicia el servidor de desarrollo:</p>
+<p><code>bash
+ npm run start</code></p>
+</li>
+<li>
+<p>Se abrirá automáticamente una ventana en tu navegador en <code>http://localhost:9000</code> mostrando el cubo giratorio.</p>
+</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>

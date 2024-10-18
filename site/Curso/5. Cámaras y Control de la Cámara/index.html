@@ -1,0 +1,1377 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../4.%20Luces%20en%20Three.js/">
+      
+      
+        <link rel="next" href="../6.%20Creaci%C3%B3n%20y%20Manipulaci%C3%B3n%20de%20Objetos%203D/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.41">
+    
+    
+      
+        <title>5. Cámaras y Control de la Cámara - Guia de modelado 3D</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#51-introduccion-a-las-camaras" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Guia de modelado 3D" class="md-header__button md-logo" aria-label="Guia de modelado 3D" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Guia de modelado 3D
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              5. Cámaras y Control de la Cámara
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Guia de modelado 3D" class="md-nav__button md-logo" aria-label="Guia de modelado 3D" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Guia de modelado 3D
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    curso
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            curso
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.%20Introducci%C3%B3n%20a%20Three.js/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introducción a Three.js
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.%20Estructura%20B%C3%A1sica%20de%20una%20Escena%20en%20Three.js/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Estructura Básica de una Escena en Three.js
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.%20Geometr%C3%ADas%20y%20Materiales/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Geometrías y Materiales
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4.%20Luces%20en%20Three.js/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Luces en Three.js
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    5. Cámaras y Control de la Cámara
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    5. Cámaras y Control de la Cámara
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#51-introduccion-a-las-camaras" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Introducción a las Cámaras
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#52-tipos-de-camaras-en-threejs" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Tipos de Cámaras en Three.js
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 Tipos de Cámaras en Three.js">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#521-camara-en-perspectiva-perspectivecamera" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.1 Cámara en Perspectiva (PerspectiveCamera)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#522-camara-ortografica-orthographiccamera" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.2 Cámara Ortográfica (OrthographicCamera)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#53-configuracion-de-parametros-importantes" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 Configuración de Parámetros Importantes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 Configuración de Parámetros Importantes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#531-campo-de-vision-fov" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.1 Campo de Visión (fov)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#532-relacion-de-aspecto-aspect" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.2 Relación de Aspecto (aspect)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#533-planos-de-recorte-near-y-far" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.3 Planos de Recorte (near y far)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#54-controles-de-la-camara" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 Controles de la Cámara
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.4 Controles de la Cámara">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#541-orbitcontrols" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.1 OrbitControls
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#55-ejemplo-completo-camara-en-perspectiva-con-orbitcontrols" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5 Ejemplo Completo: Cámara en Perspectiva con OrbitControls
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.5 Ejemplo Completo: Cámara en Perspectiva con OrbitControls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#551-estructura-de-carpetas" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.1 Estructura de Carpetas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#552-contenido-de-indexhtml" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.2 Contenido de index.html
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#553-explicacion-del-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.3 Explicación del Código
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#56-ejemplo-completo-camara-ortografica-con-controles-personalizados" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6 Ejemplo Completo: Cámara Ortográfica con Controles Personalizados
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.6 Ejemplo Completo: Cámara Ortográfica con Controles Personalizados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#561-estructura-de-carpetas" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.1 Estructura de Carpetas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#562-contenido-de-indexhtml" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.2 Contenido de index.html
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#563-explicacion-del-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.3 Explicación del Código
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#57-mejores-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.7 Mejores Prácticas
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.%20Creaci%C3%B3n%20y%20Manipulaci%C3%B3n%20de%20Objetos%203D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Creación y Manipulación de Objetos 3D
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#51-introduccion-a-las-camaras" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 Introducción a las Cámaras
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#52-tipos-de-camaras-en-threejs" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 Tipos de Cámaras en Three.js
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 Tipos de Cámaras en Three.js">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#521-camara-en-perspectiva-perspectivecamera" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.1 Cámara en Perspectiva (PerspectiveCamera)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#522-camara-ortografica-orthographiccamera" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2.2 Cámara Ortográfica (OrthographicCamera)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#53-configuracion-de-parametros-importantes" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 Configuración de Parámetros Importantes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 Configuración de Parámetros Importantes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#531-campo-de-vision-fov" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.1 Campo de Visión (fov)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#532-relacion-de-aspecto-aspect" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.2 Relación de Aspecto (aspect)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#533-planos-de-recorte-near-y-far" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.3 Planos de Recorte (near y far)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#54-controles-de-la-camara" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 Controles de la Cámara
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.4 Controles de la Cámara">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#541-orbitcontrols" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.1 OrbitControls
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#55-ejemplo-completo-camara-en-perspectiva-con-orbitcontrols" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5 Ejemplo Completo: Cámara en Perspectiva con OrbitControls
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.5 Ejemplo Completo: Cámara en Perspectiva con OrbitControls">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#551-estructura-de-carpetas" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.1 Estructura de Carpetas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#552-contenido-de-indexhtml" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.2 Contenido de index.html
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#553-explicacion-del-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.3 Explicación del Código
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#56-ejemplo-completo-camara-ortografica-con-controles-personalizados" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6 Ejemplo Completo: Cámara Ortográfica con Controles Personalizados
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.6 Ejemplo Completo: Cámara Ortográfica con Controles Personalizados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#561-estructura-de-carpetas" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.1 Estructura de Carpetas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#562-contenido-de-indexhtml" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.2 Contenido de index.html
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#563-explicacion-del-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.3 Explicación del Código
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#57-mejores-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.7 Mejores Prácticas
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>5. Cámaras y Control de la Cámara</h1>
+
+<h3 id="51-introduccion-a-las-camaras">5.1 Introducción a las Cámaras</h3>
+<p>En Three.js, <strong>la cámara</strong> es el punto de vista desde el cual observas la escena 3D. Define qué parte de la escena es visible y cómo se proyecta en la pantalla. Seleccionar y configurar adecuadamente la cámara es esencial para lograr la composición deseada y una experiencia de usuario fluida.</p>
+<h3 id="52-tipos-de-camaras-en-threejs">5.2 Tipos de Cámaras en Three.js</h3>
+<p>Three.js ofrece principalmente dos tipos de cámaras: <strong>Cámara en Perspectiva</strong> (<code>PerspectiveCamera</code>) y <strong>Cámara Ortográfica</strong> (<code>OrthographicCamera</code>). Cada una tiene características y usos específicos.</p>
+<h4 id="521-camara-en-perspectiva-perspectivecamera">5.2.1 Cámara en Perspectiva (<code>PerspectiveCamera</code>)</h4>
+<p><strong>Descripción:</strong></p>
+<p>La <code>PerspectiveCamera</code> simula la percepción humana, donde los objetos más lejanos parecen más pequeños que los cercanos. Es ideal para escenas que requieren profundidad y realismo, como juegos, visualizaciones arquitectónicas y entornos inmersivos.</p>
+<p><strong>Sintaxis:</strong></p>
+<pre><code class="language-javascript">const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+</code></pre>
+<p><strong>Parámetros:</strong></p>
+<ul>
+<li><code>fov</code> (Field of View): Campo de visión en grados. Define el ángulo de visión vertical.</li>
+<li><code>aspect</code>: Relación de aspecto, generalmente el ancho de la ventana dividido por su altura.</li>
+<li><code>near</code>: Plano cercano de recorte. Objetos más cercanos que esta distancia no se renderizan.</li>
+<li><code>far</code>: Plano lejano de recorte. Objetos más alejados que esta distancia no se renderizan.</li>
+</ul>
+<p><strong>Ejemplo:</strong></p>
+<pre><code class="language-javascript">const camera = new THREE.PerspectiveCamera(
+    75, // Campo de visión de 75 grados
+    window.innerWidth / window.innerHeight, // Relación de aspecto
+    0.1, // Plano cercano
+    1000 // Plano lejano
+);
+camera.position.set(0, 5, 10); // Posicionar la cámara
+camera.lookAt(0, 0, 0); // Orientar la cámara hacia el centro de la escena
+</code></pre>
+<h4 id="522-camara-ortografica-orthographiccamera">5.2.2 Cámara Ortográfica (<code>OrthographicCamera</code>)</h4>
+<p><strong>Descripción:</strong></p>
+<p>La <code>OrthographicCamera</code> muestra los objetos sin perspectiva, es decir, mantiene las mismas dimensiones independientemente de la distancia al observador. Es útil para aplicaciones donde la precisión y la escala son importantes, como diagramas técnicos, editores 2D o juegos de estilo isométrico.</p>
+<p><strong>Sintaxis:</strong></p>
+<pre><code class="language-javascript">const camera = new THREE.OrthographicCamera(left, right, top, bottom, near, far);
+</code></pre>
+<p><strong>Parámetros:</strong></p>
+<ul>
+<li><code>left</code>, <code>right</code>, <code>top</code>, <code>bottom</code>: Definen el tamaño del volumen de visualización ortográfica.</li>
+<li><code>near</code>: Plano cercano de recorte.</li>
+<li><code>far</code>: Plano lejano de recorte.</li>
+</ul>
+<p><strong>Ejemplo:</strong></p>
+<pre><code class="language-javascript">const aspect = window.innerWidth / window.innerHeight;
+const camera = new THREE.OrthographicCamera(
+    -10 * aspect, // left
+    10 * aspect,  // right
+    10,           // top
+    -10,          // bottom
+    0.1,          // near
+    1000          // far
+);
+camera.position.set(0, 10, 10); // Posicionar la cámara
+camera.lookAt(0, 0, 0); // Orientar la cámara hacia el centro de la escena
+</code></pre>
+<h3 id="53-configuracion-de-parametros-importantes">5.3 Configuración de Parámetros Importantes</h3>
+<h4 id="531-campo-de-vision-fov">5.3.1 Campo de Visión (<code>fov</code>)</h4>
+<p>El <code>fov</code> define el ángulo de visión vertical de la cámara en grados. Un valor mayor proporciona una visión más amplia, pero puede distorsionar la perspectiva, mientras que un valor menor enfoca más en un área específica.</p>
+<p><strong>Recomendación:</strong></p>
+<p>Un <code>fov</code> entre 60 y 75 grados suele ser adecuado para la mayoría de las aplicaciones, ya que proporciona una buena perspectiva sin exagerar la distorsión.</p>
+<h4 id="532-relacion-de-aspecto-aspect">5.3.2 Relación de Aspecto (<code>aspect</code>)</h4>
+<p>La relación de aspecto es la proporción entre el ancho y la altura de la ventana de visualización. Es crucial para evitar distorsiones en la escena.</p>
+<p><strong>Ejemplo:</strong></p>
+<pre><code class="language-javascript">const aspect = window.innerWidth / window.innerHeight;
+camera.aspect = aspect;
+camera.updateProjectionMatrix();
+</code></pre>
+<h4 id="533-planos-de-recorte-near-y-far">5.3.3 Planos de Recorte (<code>near</code> y <code>far</code>)</h4>
+<ul>
+<li>
+<p><strong><code>near</code>:</strong> Define la distancia mínima a la que la cámara empieza a renderizar objetos. Un valor muy cercano puede causar problemas de precisión, mientras que un valor muy lejano puede recortar objetos cercanos.</p>
+</li>
+<li>
+<p><strong><code>far</code>:</strong> Define la distancia máxima a la que la cámara deja de renderizar objetos. Debe ser lo suficientemente grande para incluir todos los objetos de interés, pero no demasiado grande para evitar problemas de precisión.</p>
+</li>
+</ul>
+<p><strong>Recomendación:</strong></p>
+<p>Mantén el rango entre <code>near</code> y <code>far</code> lo más estrecho posible para optimizar la profundidad de la escena y mejorar el rendimiento.</p>
+<h3 id="54-controles-de-la-camara">5.4 Controles de la Cámara</h3>
+<p>Para mejorar la experiencia de usuario, es común implementar controles que permitan interactuar con la cámara, como rotar, acercar o alejar la vista. Three.js proporciona <strong><code>OrbitControls</code></strong> para este propósito.</p>
+<h4 id="541-orbitcontrols">5.4.1 <code>OrbitControls</code></h4>
+<p><strong>Descripción:</strong></p>
+<p><code>OrbitControls</code> permite rotar, acercar y alejar la cámara alrededor de un punto objetivo. Es ideal para aplicaciones donde el usuario necesita explorar la escena desde diferentes ángulos.</p>
+<p><strong>Instalación:</strong></p>
+<p>Si estás utilizando un CDN, puedes incluir <code>OrbitControls</code> directamente desde el repositorio de Three.js.</p>
+<pre><code class="language-html">&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/examples/js/controls/OrbitControls.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>Si estás utilizando módulos ES6 con <code>import</code>, asegúrate de importar correctamente <code>OrbitControls</code>.</p>
+<p><strong>Uso Básico:</strong></p>
+<pre><code class="language-javascript">// Crear los controles después de haber creado la cámara y el renderizador
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+// Configurar opciones de los controles
+controls.enableDamping = true; // Habilita la inercia
+controls.dampingFactor = 0.05; // Factor de inercia
+controls.screenSpacePanning = false; // Deshabilita el desplazamiento en el espacio de la pantalla
+controls.minDistance = 5; // Distancia mínima al objeto
+controls.maxDistance = 50; // Distancia máxima al objeto
+controls.maxPolarAngle = Math.PI / 2; // Limita la rotación vertical a 90 grados
+</code></pre>
+<p><strong>Actualización en el Ciclo de Animación:</strong></p>
+<p>Es importante actualizar los controles en cada frame para que las animaciones de inercia funcionen correctamente.</p>
+<pre><code class="language-javascript">function animate() {
+    requestAnimationFrame(animate);
+
+    controls.update(); // Actualiza los controles
+
+    renderer.render(scene, camera);
+}
+
+animate();
+</code></pre>
+<p><strong>Opciones Avanzadas:</strong></p>
+<ul>
+<li>
+<p><strong><code>controls.target</code></strong>: Define el punto alrededor del cual la cámara orbita. Por defecto, es <code>(0, 0, 0)</code>.</p>
+<p><code>javascript
+controls.target.set(0, 0, 0);</code></p>
+</li>
+<li>
+<p><strong><code>controls.enableZoom</code></strong>: Habilita o deshabilita el zoom.</p>
+<p><code>javascript
+controls.enableZoom = true;</code></p>
+</li>
+<li>
+<p><strong><code>controls.enableRotate</code></strong>: Habilita o deshabilita la rotación.</p>
+<p><code>javascript
+controls.enableRotate = true;</code></p>
+</li>
+<li>
+<p><strong><code>controls.enablePan</code></strong>: Habilita o deshabilita el desplazamiento lateral.</p>
+<p><code>javascript
+controls.enablePan = true;</code></p>
+</li>
+</ul>
+<h3 id="55-ejemplo-completo-camara-en-perspectiva-con-orbitcontrols">5.5 Ejemplo Completo: Cámara en Perspectiva con <code>OrbitControls</code></h3>
+<p>A continuación, se presenta un ejemplo completo que integra una <code>PerspectiveCamera</code> con <code>OrbitControls</code>, permitiendo al usuario interactuar con la cámara para explorar la escena.</p>
+<h4 id="551-estructura-de-carpetas">5.5.1 Estructura de Carpetas</h4>
+<pre><code>mi-escena-camara-threejs/
+├── index.html
+├── js/
+│   └── three.min.js
+└── examples/
+    └── OrbitControls.js
+</code></pre>
+<h4 id="552-contenido-de-indexhtml">5.5.2 Contenido de <code>index.html</code></h4>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Cámara y Controles en Three.js&lt;/title&gt;
+    &lt;style&gt;
+        body { margin: 0; }
+        canvas { display: block; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Enlace a Three.js --&gt;
+    &lt;script src=&quot;js/three.min.js&quot;&gt;&lt;/script&gt;
+    &lt;!-- Enlace a OrbitControls --&gt;
+    &lt;script src=&quot;examples/OrbitControls.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+        // 1. Crear la escena
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xdddddd);
+
+        // 2. Crear la cámara en perspectiva
+        const camera = new THREE.PerspectiveCamera(
+            75, // Campo de visión
+            window.innerWidth / window.innerHeight, // Relación de aspecto
+            0.1, // Plano cercano
+            1000 // Plano lejano
+        );
+        camera.position.set(0, 5, 10); // Posicionar la cámara
+        camera.lookAt(0, 0, 0); // Orientar la cámara hacia el centro de la escena
+
+        // 3. Crear el renderizador
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // 4. Añadir OrbitControls
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true; // Habilitar inercia
+        controls.dampingFactor = 0.05; // Factor de inercia
+        controls.minDistance = 5; // Distancia mínima
+        controls.maxDistance = 50; // Distancia máxima
+        controls.maxPolarAngle = Math.PI / 2; // Limitar rotación vertical
+
+        // 5. Añadir una luz ambiental
+        const ambientLight = new THREE.AmbientLight(0x404040, 1); // Luz ambiental suave
+        scene.add(ambientLight);
+
+        // 6. Añadir una luz direccional
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(5, 10, 7.5);
+        directionalLight.castShadow = true; // La luz proyecta sombras
+
+        // Configuración de sombras para la luz direccional
+        directionalLight.shadow.mapSize.width = 1024;
+        directionalLight.shadow.mapSize.height = 1024;
+        directionalLight.shadow.camera.near = 0.5;
+        directionalLight.shadow.camera.far = 50;
+        directionalLight.shadow.camera.left = -10;
+        directionalLight.shadow.camera.right = 10;
+        directionalLight.shadow.camera.top = 10;
+        directionalLight.shadow.camera.bottom = -10;
+
+        scene.add(directionalLight);
+
+        // 7. Crear un cubo que proyecta y recibe sombras
+        const geometry = new THREE.BoxGeometry(2, 2, 2);
+        const material = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
+        const cube = new THREE.Mesh(geometry, material);
+        cube.castShadow = true; // El cubo proyecta sombras
+        cube.receiveShadow = true; // El cubo puede recibir sombras
+        scene.add(cube);
+
+        // 8. Crear el suelo que recibe sombras
+        const floorGeometry = new THREE.PlaneGeometry(20, 20);
+        const floorMaterial = new THREE.MeshStandardMaterial({ color: 0x808080 });
+        const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+        floor.rotation.x = -Math.PI / 2; // Rotar para que quede horizontal
+        floor.position.y = -1;
+        floor.receiveShadow = true; // El suelo recibe sombras
+        scene.add(floor);
+
+        // 9. Función de animación
+        function animate() {
+            requestAnimationFrame(animate);
+
+            controls.update(); // Actualizar los controles
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // 10. Manejar el redimensionamiento de la ventana
+        window.addEventListener('resize', () =&gt; {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h4 id="553-explicacion-del-codigo">5.5.3 Explicación del Código</h4>
+<ol>
+<li><strong>Escena y Cámara:</strong></li>
+<li>Se crea una escena con un fondo de color gris claro.</li>
+<li>Se configura una <code>PerspectiveCamera</code> con un campo de visión de 75 grados, una relación de aspecto basada en el tamaño de la ventana y planos de recorte cercanos y lejanos de 0.1 y 1000, respectivamente.</li>
+<li>
+<p>La cámara se posiciona en <code>(0, 5, 10)</code> y mira hacia el centro de la escena.</p>
+</li>
+<li>
+<p><strong>Renderizador:</strong></p>
+</li>
+<li>Se crea un <code>WebGLRenderer</code> con antialiasing habilitado para suavizar los bordes de los objetos.</li>
+<li>
+<p>El renderizador se ajusta al tamaño de la ventana y se añade al documento HTML.</p>
+</li>
+<li>
+<p><strong>OrbitControls:</strong></p>
+</li>
+<li>Se instancia <code>OrbitControls</code> pasando la cámara y el renderizador como parámetros.</li>
+<li>Se habilita la inercia (<code>enableDamping</code>) para que los movimientos de la cámara sean más suaves.</li>
+<li>Se establecen límites de distancia mínima y máxima para evitar acercamientos excesivos o alejamientos que puedan comprometer la visibilidad de la escena.</li>
+<li>
+<p>Se limita la rotación vertical para evitar que la cámara se coloque debajo del suelo.</p>
+</li>
+<li>
+<p><strong>Iluminación:</strong></p>
+</li>
+<li><strong>AmbientLight:</strong> Proporciona una iluminación base suave en toda la escena.</li>
+<li>
+<p><strong>DirectionalLight:</strong> Simula una luz direccional (como el sol), posicionada en <code>(5, 10, 7.5)</code> y configurada para proyectar sombras. Se ajustan sus propiedades de sombra para mejorar la calidad visual.</p>
+</li>
+<li>
+<p><strong>Objetos:</strong></p>
+</li>
+<li><strong>Cubo:</strong> Un objeto verde con <code>MeshStandardMaterial</code> que responde a la iluminación. Está configurado para proyectar y recibir sombras.</li>
+<li>
+<p><strong>Suelo:</strong> Un plano gris que actúa como suelo, rotado para quedar horizontal y posicionado debajo del cubo. Está configurado para recibir sombras.</p>
+</li>
+<li>
+<p><strong>Animación:</strong></p>
+</li>
+<li>
+<p>Se define una función <code>animate</code> que se ejecuta en cada frame, actualizando los controles de la cámara y renderizando la escena.</p>
+</li>
+<li>
+<p><strong>Redimensionamiento:</strong></p>
+</li>
+<li>Se añade un evento que ajusta el tamaño del renderizador y la cámara cuando la ventana cambia de tamaño, manteniendo la proporción y la calidad visual.</li>
+</ol>
+<h3 id="56-ejemplo-completo-camara-ortografica-con-controles-personalizados">5.6 Ejemplo Completo: Cámara Ortográfica con Controles Personalizados</h3>
+<p>Para contrastar con el ejemplo anterior, a continuación se presenta un ejemplo que utiliza una <code>OrthographicCamera</code> junto con <code>OrbitControls</code>, permitiendo una visualización sin perspectiva de la escena.</p>
+<h4 id="561-estructura-de-carpetas">5.6.1 Estructura de Carpetas</h4>
+<pre><code>mi-escena-ortografica-threejs/
+├── index.html
+├── js/
+│   └── three.min.js
+└── examples/
+    └── OrbitControls.js
+</code></pre>
+<h4 id="562-contenido-de-indexhtml">5.6.2 Contenido de <code>index.html</code></h4>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Cámara Ortográfica en Three.js&lt;/title&gt;
+    &lt;style&gt;
+        body { margin: 0; }
+        canvas { display: block; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Enlace a Three.js --&gt;
+    &lt;script src=&quot;js/three.min.js&quot;&gt;&lt;/script&gt;
+    &lt;!-- Enlace a OrbitControls --&gt;
+    &lt;script src=&quot;examples/OrbitControls.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+        // 1. Crear la escena
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xeeeeee);
+
+        // 2. Crear la cámara ortográfica
+        const aspect = window.innerWidth / window.innerHeight;
+        const camera = new THREE.OrthographicCamera(
+            -10 * aspect, // left
+            10 * aspect,  // right
+            10,           // top
+            -10,          // bottom
+            0.1,          // near
+            1000          // far
+        );
+        camera.position.set(20, 20, 20); // Posicionar la cámara
+        camera.lookAt(0, 0, 0); // Orientar la cámara hacia el centro de la escena
+
+        // 3. Crear el renderizador
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // 4. Añadir OrbitControls
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true; // Habilitar inercia
+        controls.dampingFactor = 0.05; // Factor de inercia
+        controls.enableZoom = true; // Habilitar zoom
+        controls.enableRotate = true; // Habilitar rotación
+        controls.enablePan = true; // Habilitar desplazamiento
+        controls.minZoom = 0.5; // Zoom mínimo
+        controls.maxZoom = 2;   // Zoom máximo
+
+        // 5. Añadir una luz ambiental
+        const ambientLight = new THREE.AmbientLight(0x404040, 1); // Luz ambiental suave
+        scene.add(ambientLight);
+
+        // 6. Añadir una luz direccional
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(10, 20, 10);
+        directionalLight.castShadow = true; // La luz proyecta sombras
+
+        // Configuración de sombras para la luz direccional
+        directionalLight.shadow.mapSize.width = 1024;
+        directionalLight.shadow.mapSize.height = 1024;
+        directionalLight.shadow.camera.near = 0.5;
+        directionalLight.shadow.camera.far = 50;
+        directionalLight.shadow.camera.left = -15;
+        directionalLight.shadow.camera.right = 15;
+        directionalLight.shadow.camera.top = 15;
+        directionalLight.shadow.camera.bottom = -15;
+
+        scene.add(directionalLight);
+
+        // 7. Crear una esfera que proyecta y recibe sombras
+        const geometry = new THREE.SphereGeometry(3, 32, 32);
+        const material = new THREE.MeshStandardMaterial({ color: 0x0077ff });
+        const sphere = new THREE.Mesh(geometry, material);
+        sphere.castShadow = true; // La esfera proyecta sombras
+        sphere.receiveShadow = true; // La esfera puede recibir sombras
+        scene.add(sphere);
+
+        // 8. Crear el suelo que recibe sombras
+        const floorGeometry = new THREE.PlaneGeometry(50, 50);
+        const floorMaterial = new THREE.MeshStandardMaterial({ color: 0x888888 });
+        const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+        floor.rotation.x = -Math.PI / 2; // Rotar para que quede horizontal
+        floor.position.y = -5;
+        floor.receiveShadow = true; // El suelo recibe sombras
+        scene.add(floor);
+
+        // 9. Función de animación
+        function animate() {
+            requestAnimationFrame(animate);
+
+            controls.update(); // Actualizar los controles
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // 10. Manejar el redimensionamiento de la ventana
+        window.addEventListener('resize', () =&gt; {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            // Actualizar la relación de aspecto y los parámetros de la cámara ortográfica
+            const aspect = width / height;
+            camera.left = -10 * aspect;
+            camera.right = 10 * aspect;
+            camera.top = 10;
+            camera.bottom = -10;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize(width, height);
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h4 id="563-explicacion-del-codigo">5.6.3 Explicación del Código</h4>
+<ol>
+<li><strong>Escena y Cámara:</strong></li>
+<li>Se crea una escena con un fondo gris claro.</li>
+<li>
+<p>Se configura una <code>OrthographicCamera</code> con un volumen de visualización que depende de la relación de aspecto de la ventana. La cámara se posiciona en <code>(20, 20, 20)</code> y mira hacia el centro de la escena.</p>
+</li>
+<li>
+<p><strong>Renderizador:</strong></p>
+</li>
+<li>Se crea un <code>WebGLRenderer</code> con antialiasing habilitado para suavizar los bordes de los objetos.</li>
+<li>
+<p>El renderizador se ajusta al tamaño de la ventana y se añade al documento HTML.</p>
+</li>
+<li>
+<p><strong>OrbitControls:</strong></p>
+</li>
+<li>Se instancia <code>OrbitControls</code> pasando la cámara y el renderizador como parámetros.</li>
+<li>Se habilita la inercia (<code>enableDamping</code>) para movimientos suaves.</li>
+<li>Se establecen límites de zoom mínimo y máximo para controlar el acercamiento y alejamiento.</li>
+<li>
+<p>Se habilitan todas las interacciones posibles: zoom, rotación y desplazamiento.</p>
+</li>
+<li>
+<p><strong>Iluminación:</strong></p>
+</li>
+<li><strong>AmbientLight:</strong> Proporciona una iluminación base suave en toda la escena.</li>
+<li>
+<p><strong>DirectionalLight:</strong> Simula una luz direccional (como el sol), posicionada en <code>(10, 20, 10)</code> y configurada para proyectar sombras. Se ajustan sus propiedades de sombra para mejorar la calidad visual.</p>
+</li>
+<li>
+<p><strong>Objetos:</strong></p>
+</li>
+<li><strong>Esfera:</strong> Un objeto azul con <code>MeshStandardMaterial</code> que responde a la iluminación. Está configurado para proyectar y recibir sombras.</li>
+<li>
+<p><strong>Suelo:</strong> Un plano gris que actúa como suelo, rotado para quedar horizontal y posicionado debajo de la esfera. Está configurado para recibir sombras.</p>
+</li>
+<li>
+<p><strong>Animación:</strong></p>
+</li>
+<li>
+<p>Se define una función <code>animate</code> que se ejecuta en cada frame, actualizando los controles de la cámara y renderizando la escena.</p>
+</li>
+<li>
+<p><strong>Redimensionamiento:</strong></p>
+</li>
+<li>Se añade un evento que ajusta el tamaño del renderizador y actualiza los parámetros de la cámara ortográfica cuando la ventana cambia de tamaño, manteniendo la proporción y evitando distorsiones.</li>
+</ol>
+<h3 id="57-mejores-practicas">5.7 Mejores Prácticas</h3>
+<ol>
+<li><strong>Usar Helpers para Depuración:</strong></li>
+<li>Emplea <code>THREE.CameraHelper</code> para visualizar el volumen de la cámara y asegurarte de que está configurada correctamente.</li>
+<li>Los helpers facilitan la depuración y el ajuste fino de la configuración de la cámara.</li>
+</ol>
+<p><strong>Ejemplo de Uso de <code>CameraHelper</code>:</strong></p>
+<pre><code class="language-javascript">// Crear un helper para la cámara direccional
+const directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight, 5);
+scene.add(directionalLightHelper);
+
+// Crear un helper para la cámara
+const cameraHelper = new THREE.CameraHelper(camera);
+scene.add(cameraHelper);
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>

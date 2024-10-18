@@ -1,0 +1,1561 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../3.%20Geometr%C3%ADas%20y%20Materiales/">
+      
+      
+        <link rel="next" href="../5.%20C%C3%A1maras%20y%20Control%20de%20la%20C%C3%A1mara/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.41">
+    
+    
+      
+        <title>4. Luces en Three.js - Guia de modelado 3D</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#41-introduccion-a-las-luces" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Guia de modelado 3D" class="md-header__button md-logo" aria-label="Guia de modelado 3D" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Guia de modelado 3D
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              4. Luces en Three.js
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Guia de modelado 3D" class="md-nav__button md-logo" aria-label="Guia de modelado 3D" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Guia de modelado 3D
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    curso
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            curso
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.%20Introducci%C3%B3n%20a%20Three.js/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introducción a Three.js
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.%20Estructura%20B%C3%A1sica%20de%20una%20Escena%20en%20Three.js/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Estructura Básica de una Escena en Three.js
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.%20Geometr%C3%ADas%20y%20Materiales/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Geometrías y Materiales
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    4. Luces en Three.js
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    4. Luces en Three.js
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#41-introduccion-a-las-luces" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Introducción a las Luces
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-tipos-de-luces-en-threejs" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Tipos de Luces en Three.js
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 Tipos de Luces en Three.js">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#421-threeambientlight" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.1 THREE.AmbientLight
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#422-threedirectionallight" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.2 THREE.DirectionalLight
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#423-threepointlight" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.3 THREE.PointLight
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#424-threespotlight" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.4 THREE.SpotLight
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#425-threehemispherelight" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.5 THREE.HemisphereLight
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#426-threerectarealight" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.6 THREE.RectAreaLight
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-anadir-luces-a-la-escena" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Añadir Luces a la Escena
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#44-configuracion-de-sombras" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 Configuración de Sombras
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4 Configuración de Sombras">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#441-habilitar-sombras-en-el-renderizador" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.1 Habilitar Sombras en el Renderizador
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#442-configurar-luces-para-proyectar-sombras" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.2 Configurar Luces para Proyectar Sombras
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#443-configurar-objetos-para-proyectar-y-recibir-sombras" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.3 Configurar Objetos para Proyectar y Recibir Sombras
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#444-ajustar-la-calidad-de-las-sombras" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.4 Ajustar la Calidad de las Sombras
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#45-efectos-de-las-luces-en-materiales" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5 Efectos de las Luces en Materiales
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.5 Efectos de las Luces en Materiales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#451-meshbasicmaterial" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5.1 MeshBasicMaterial
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#452-meshlambertmaterial" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5.2 MeshLambertMaterial
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#453-meshphongmaterial" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5.3 MeshPhongMaterial
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#454-meshstandardmaterial" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5.4 MeshStandardMaterial
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#46-ejemplos-practicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.6 Ejemplos Prácticos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.6 Ejemplos Prácticos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#461-ejemplo-1-escena-con-ambientlight-y-directionallight" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.6.1 Ejemplo 1: Escena con AmbientLight y DirectionalLight
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#462-ejemplo-2-uso-de-spotlight-con-sombras" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.6.2 Ejemplo 2: Uso de SpotLight con Sombras
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#47-mejores-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.7 Mejores Prácticas
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.%20C%C3%A1maras%20y%20Control%20de%20la%20C%C3%A1mara/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Cámaras y Control de la Cámara
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.%20Creaci%C3%B3n%20y%20Manipulaci%C3%B3n%20de%20Objetos%203D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Creación y Manipulación de Objetos 3D
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#41-introduccion-a-las-luces" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Introducción a las Luces
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-tipos-de-luces-en-threejs" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Tipos de Luces en Three.js
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 Tipos de Luces en Three.js">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#421-threeambientlight" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.1 THREE.AmbientLight
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#422-threedirectionallight" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.2 THREE.DirectionalLight
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#423-threepointlight" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.3 THREE.PointLight
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#424-threespotlight" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.4 THREE.SpotLight
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#425-threehemispherelight" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.5 THREE.HemisphereLight
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#426-threerectarealight" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.6 THREE.RectAreaLight
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-anadir-luces-a-la-escena" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Añadir Luces a la Escena
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#44-configuracion-de-sombras" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4 Configuración de Sombras
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4 Configuración de Sombras">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#441-habilitar-sombras-en-el-renderizador" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.1 Habilitar Sombras en el Renderizador
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#442-configurar-luces-para-proyectar-sombras" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.2 Configurar Luces para Proyectar Sombras
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#443-configurar-objetos-para-proyectar-y-recibir-sombras" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.3 Configurar Objetos para Proyectar y Recibir Sombras
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#444-ajustar-la-calidad-de-las-sombras" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.4.4 Ajustar la Calidad de las Sombras
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#45-efectos-de-las-luces-en-materiales" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5 Efectos de las Luces en Materiales
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.5 Efectos de las Luces en Materiales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#451-meshbasicmaterial" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5.1 MeshBasicMaterial
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#452-meshlambertmaterial" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5.2 MeshLambertMaterial
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#453-meshphongmaterial" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5.3 MeshPhongMaterial
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#454-meshstandardmaterial" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.5.4 MeshStandardMaterial
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#46-ejemplos-practicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.6 Ejemplos Prácticos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.6 Ejemplos Prácticos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#461-ejemplo-1-escena-con-ambientlight-y-directionallight" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.6.1 Ejemplo 1: Escena con AmbientLight y DirectionalLight
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#462-ejemplo-2-uso-de-spotlight-con-sombras" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.6.2 Ejemplo 2: Uso de SpotLight con Sombras
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#47-mejores-practicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.7 Mejores Prácticas
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>4. Luces en Three.js</h1>
+
+<h3 id="41-introduccion-a-las-luces">4.1 Introducción a las Luces</h3>
+<p>La <strong>iluminación</strong> es un componente crucial en cualquier entorno 3D, ya que determina cómo se ven los objetos, sus colores, sombras y texturas. En Three.js, las luces simulan diferentes fuentes de luz presentes en el mundo real, permitiendo crear ambientes realistas o estilizados según tus necesidades.</p>
+<h3 id="42-tipos-de-luces-en-threejs">4.2 Tipos de Luces en Three.js</h3>
+<h4 id="421-threeambientlight">4.2.1 <code>THREE.AmbientLight</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Proporciona una iluminación uniforme en toda la escena sin dirección específica. No crea sombras y afecta a todos los objetos de manera igualitaria.</li>
+<li><strong>Uso común:</strong> Simular luz ambiental general, como la luz difusa que no proviene de una fuente específica.</li>
+</ul>
+<p><strong>Sintaxis:</strong></p>
+<pre><code class="language-javascript">const ambientLight = new THREE.AmbientLight(color, intensidad);
+</code></pre>
+<p><strong>Ejemplo:</strong></p>
+<pre><code class="language-javascript">const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // Luz blanca con 50% de intensidad
+scene.add(ambientLight);
+</code></pre>
+<h4 id="422-threedirectionallight">4.2.2 <code>THREE.DirectionalLight</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Simula una fuente de luz distante que emite luz en una dirección específica, similar al sol. Puede proyectar sombras.</li>
+<li><strong>Uso común:</strong> Iluminación principal de la escena, proporcionando sombras y profundidad.</li>
+</ul>
+<p><strong>Sintaxis:</strong></p>
+<pre><code class="language-javascript">const directionalLight = new THREE.DirectionalLight(color, intensidad);
+</code></pre>
+<p><strong>Ejemplo:</strong></p>
+<pre><code class="language-javascript">const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+directionalLight.position.set(5, 10, 7.5); // Posición de la luz
+scene.add(directionalLight);
+</code></pre>
+<h4 id="423-threepointlight">4.2.3 <code>THREE.PointLight</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Emite luz en todas las direcciones desde un punto específico, similar a una bombilla. Puede proyectar sombras.</li>
+<li><strong>Uso común:</strong> Simular fuentes de luz localizadas, como lámparas o luces ambientales.</li>
+</ul>
+<p><strong>Sintaxis:</strong></p>
+<pre><code class="language-javascript">const pointLight = new THREE.PointLight(color, intensidad, distancia, atenuación);
+</code></pre>
+<p><strong>Ejemplo:</strong></p>
+<pre><code class="language-javascript">const pointLight = new THREE.PointLight(0xffffff, 1, 100);
+pointLight.position.set(0, 10, 0);
+scene.add(pointLight);
+</code></pre>
+<h4 id="424-threespotlight">4.2.4 <code>THREE.SpotLight</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Emite luz en un cono desde una posición específica, con ángulo y penumbra ajustables. Puede proyectar sombras.</li>
+<li><strong>Uso común:</strong> Simular focos de luz, como lámparas de escenario o linternas.</li>
+</ul>
+<p><strong>Sintaxis:</strong></p>
+<pre><code class="language-javascript">const spotLight = new THREE.SpotLight(color, intensidad, distancia, ángulo, penumbra, decaimiento);
+</code></pre>
+<p><strong>Ejemplo:</strong></p>
+<pre><code class="language-javascript">const spotLight = new THREE.SpotLight(0xffffff, 1);
+spotLight.position.set(10, 20, 10);
+spotLight.angle = Math.PI / 6; // Ángulo del cono de luz
+spotLight.penumbra = 0.1; // Transición suave en los bordes
+scene.add(spotLight);
+</code></pre>
+<h4 id="425-threehemispherelight">4.2.5 <code>THREE.HemisphereLight</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Simula la luz ambiental proveniente del cielo y del suelo, proporcionando una iluminación suave y difusa sin dirección específica.</li>
+<li><strong>Uso común:</strong> Crear efectos de iluminación natural, como la luz del día.</li>
+</ul>
+<p><strong>Sintaxis:</strong></p>
+<pre><code class="language-javascript">const hemisphereLight = new THREE.HemisphereLight(skyColor, groundColor, intensidad);
+</code></pre>
+<p><strong>Ejemplo:</strong></p>
+<pre><code class="language-javascript">const hemisphereLight = new THREE.HemisphereLight(0xaaaaaa, 0x444444, 1);
+hemisphereLight.position.set(0, 20, 0);
+scene.add(hemisphereLight);
+</code></pre>
+<h4 id="426-threerectarealight">4.2.6 <code>THREE.RectAreaLight</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Emite luz desde una superficie rectangular, proporcionando una iluminación suave y realista. Requiere el uso de materiales específicos (<code>MeshStandardMaterial</code> o <code>MeshPhysicalMaterial</code>).</li>
+<li><strong>Uso común:</strong> Simular luces de ventana o paneles de luz.</li>
+</ul>
+<p><strong>Sintaxis:</strong></p>
+<pre><code class="language-javascript">const rectAreaLight = new THREE.RectAreaLight(color, intensidad, ancho, alto);
+</code></pre>
+<p><strong>Ejemplo:</strong></p>
+<pre><code class="language-javascript">const rectAreaLight = new THREE.RectAreaLight(0xffffff, 1, 4, 2);
+rectAreaLight.position.set(0, 10, 0);
+rectAreaLight.lookAt(0, 0, 0); // Orientar la luz hacia el centro de la escena
+scene.add(rectAreaLight);
+</code></pre>
+<blockquote>
+<p><strong>Nota:</strong> <code>RectAreaLight</code> no soporta sombras en Three.js en la versión actual. Para utilizarlo correctamente, asegúrate de que los materiales de los objetos sean compatibles.</p>
+</blockquote>
+<h3 id="43-anadir-luces-a-la-escena">4.3 Añadir Luces a la Escena</h3>
+<p>Agregar luces a una escena en Three.js es sencillo. A continuación, se muestra cómo integrar diferentes tipos de luces en una escena básica.</p>
+<p><strong>Ejemplo Completo: Integración de Varias Luces</strong></p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Luces en Three.js&lt;/title&gt;
+    &lt;style&gt;
+        body { margin: 0; }
+        canvas { display: block; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Enlace a Three.js --&gt;
+    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+        // 1. Crear la escena
+        const scene = new THREE.Scene();
+
+        // 2. Crear la cámara
+        const camera = new THREE.PerspectiveCamera(
+            75,
+            window.innerWidth / window.innerHeight,
+            0.1,
+            1000
+        );
+        camera.position.set(0, 5, 10);
+        camera.lookAt(0, 0, 0);
+
+        // 3. Crear el renderizador
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true; // Habilitar sombras
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap; // Tipo de sombras
+        document.body.appendChild(renderer.domElement);
+
+        // 4. Añadir AmbientLight
+        const ambientLight = new THREE.AmbientLight(0x404040, 1); // Luz ambiental suave
+        scene.add(ambientLight);
+
+        // 5. Añadir DirectionalLight
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(5, 10, 7.5);
+        directionalLight.castShadow = true; // La luz proyecta sombras
+        // Configuración de sombras
+        directionalLight.shadow.mapSize.width = 1024;
+        directionalLight.shadow.mapSize.height = 1024;
+        directionalLight.shadow.camera.near = 0.5;
+        directionalLight.shadow.camera.far = 50;
+        scene.add(directionalLight);
+
+        // 6. Añadir PointLight
+        const pointLight = new THREE.PointLight(0xff0000, 1, 100);
+        pointLight.position.set(-5, 5, -5);
+        pointLight.castShadow = true;
+        scene.add(pointLight);
+
+        // 7. Crear un objeto para iluminar
+        const geometry = new THREE.BoxGeometry(2, 2, 2);
+        const material = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
+        const cube = new THREE.Mesh(geometry, material);
+        cube.castShadow = true; // El cubo proyecta sombras
+        cube.receiveShadow = true; // El cubo recibe sombras
+        scene.add(cube);
+
+        // 8. Crear el suelo
+        const sueloGeometry = new THREE.PlaneGeometry(20, 20);
+        const sueloMaterial = new THREE.MeshStandardMaterial({ color: 0x808080 });
+        const suelo = new THREE.Mesh(sueloGeometry, sueloMaterial);
+        suelo.rotation.x = -Math.PI / 2; // Rotar para que quede horizontal
+        suelo.position.y = -1;
+        suelo.receiveShadow = true; // El suelo recibe sombras
+        scene.add(suelo);
+
+        // 9. Función de animación
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotar el cubo
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+
+            // Renderizar la escena
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // 10. Manejar el redimensionamiento de la ventana
+        window.addEventListener('resize', () =&gt; {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><strong>Explicación del Código:</strong></p>
+<ol>
+<li><strong>Escena y Cámara:</strong></li>
+<li>
+<p>Se crea una escena y una cámara en perspectiva posicionada en <code>(0, 5, 10)</code>, mirando hacia el centro de la escena.</p>
+</li>
+<li>
+<p><strong>Renderizador:</strong></p>
+</li>
+<li>
+<p>Se configura el renderizador para ocupar toda la ventana, se habilitan las sombras y se establece el tipo de sombra (<code>PCFSoftShadowMap</code>) para obtener sombras más suaves.</p>
+</li>
+<li>
+<p><strong>Luces:</strong></p>
+</li>
+<li><strong>AmbientLight:</strong> Proporciona una iluminación base suave en toda la escena.</li>
+<li><strong>DirectionalLight:</strong> Simula una fuente de luz distante como el sol, proyectando sombras. Se configuran sus propiedades de sombra para mejorar la calidad.</li>
+<li>
+<p><strong>PointLight:</strong> Añade una fuente de luz localizada en una posición específica, con color rojo y capaz de proyectar sombras.</p>
+</li>
+<li>
+<p><strong>Objetos:</strong></p>
+</li>
+<li><strong>Cubo:</strong> Un objeto con <code>MeshStandardMaterial</code> que responde a la iluminación. Está configurado para proyectar y recibir sombras.</li>
+<li>
+<p><strong>Suelo:</strong> Un plano que actúa como suelo, recibiendo sombras proyectadas por el cubo y las luces.</p>
+</li>
+<li>
+<p><strong>Animación:</strong></p>
+</li>
+<li>
+<p>Se define una función <code>animate</code> que rota el cubo en cada frame y renderiza la escena.</p>
+</li>
+<li>
+<p><strong>Redimensionamiento:</strong></p>
+</li>
+<li>Se añade un evento que actualiza el tamaño del renderizador y la cámara cuando la ventana cambia de tamaño.</li>
+</ol>
+<h3 id="44-configuracion-de-sombras">4.4 Configuración de Sombras</h3>
+<p>Las sombras añaden realismo a las escenas 3D al simular la obstrucción de la luz por objetos. Para gestionar las sombras en Three.js, se deben seguir varios pasos:</p>
+<h4 id="441-habilitar-sombras-en-el-renderizador">4.4.1 Habilitar Sombras en el Renderizador</h4>
+<p>Antes de poder utilizar sombras, es necesario habilitarlas en el renderizador.</p>
+<p><strong>Ejemplo:</strong></p>
+<pre><code class="language-javascript">const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.shadowMap.enabled = true; // Habilitar sombras
+renderer.shadowMap.type = THREE.PCFSoftShadowMap; // Tipo de sombra (opcional)
+</code></pre>
+<h4 id="442-configurar-luces-para-proyectar-sombras">4.4.2 Configurar Luces para Proyectar Sombras</h4>
+<p>No todas las luces pueden proyectar sombras. Las luces que pueden hacerlo son:</p>
+<ul>
+<li><code>DirectionalLight</code></li>
+<li><code>SpotLight</code></li>
+<li><code>PointLight</code> (en versiones más recientes de Three.js)</li>
+</ul>
+<p>Para habilitar sombras en una luz, se debe establecer la propiedad <code>castShadow</code> en <code>true</code> y ajustar las propiedades de la sombra para mejorar la calidad.</p>
+<p><strong>Ejemplo:</strong></p>
+<pre><code class="language-javascript">const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+directionalLight.position.set(5, 10, 7.5);
+directionalLight.castShadow = true; // La luz proyecta sombras
+
+// Configurar la sombra
+directionalLight.shadow.mapSize.width = 1024;
+directionalLight.shadow.mapSize.height = 1024;
+directionalLight.shadow.camera.near = 0.5;
+directionalLight.shadow.camera.far = 50;
+
+scene.add(directionalLight);
+</code></pre>
+<h4 id="443-configurar-objetos-para-proyectar-y-recibir-sombras">4.4.3 Configurar Objetos para Proyectar y Recibir Sombras</h4>
+<p>Para que los objetos interactúen con las sombras, deben configurarse adecuadamente.</p>
+<ul>
+<li><strong>Proyectar sombras (<code>castShadow</code>):</strong> Determina si el objeto puede proyectar sombras sobre otros objetos.</li>
+<li><strong>Recibir sombras (<code>receiveShadow</code>):</strong> Determina si el objeto puede recibir sombras de otros objetos.</li>
+</ul>
+<p><strong>Ejemplo:</strong></p>
+<pre><code class="language-javascript">// Objeto que proyecta y recibe sombras
+const cube = new THREE.Mesh(geometry, material);
+cube.castShadow = true; // El cubo proyecta sombras
+cube.receiveShadow = true; // El cubo puede recibir sombras
+scene.add(cube);
+
+// Objeto que solo recibe sombras
+const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+floor.receiveShadow = true; // El suelo puede recibir sombras
+scene.add(floor);
+</code></pre>
+<h4 id="444-ajustar-la-calidad-de-las-sombras">4.4.4 Ajustar la Calidad de las Sombras</h4>
+<p>Para mejorar la calidad de las sombras, puedes ajustar varias propiedades de la luz y de la sombra.</p>
+<p><strong>Propiedades Clave:</strong></p>
+<ul>
+<li><strong><code>shadow.mapSize</code>:</strong> Define la resolución del mapa de sombras. Valores más altos mejoran la calidad pero consumen más recursos.</li>
+<li><strong><code>shadow.camera</code>:</strong> Define el área de visión de la cámara de sombras. Ajustar <code>near</code>, <code>far</code>, <code>left</code>, <code>right</code>, <code>top</code>, <code>bottom</code> para optimizar.</li>
+<li><strong><code>shadow.bias</code>:</strong> Ayuda a prevenir artefactos como el "shadow acne" ajustando un sesgo en las sombras.</li>
+</ul>
+<p><strong>Ejemplo:</strong></p>
+<pre><code class="language-javascript">directionalLight.shadow.mapSize.width = 2048;
+directionalLight.shadow.mapSize.height = 2048;
+
+directionalLight.shadow.camera.left = -10;
+directionalLight.shadow.camera.right = 10;
+directionalLight.shadow.camera.top = 10;
+directionalLight.shadow.camera.bottom = -10;
+
+directionalLight.shadow.bias = -0.001;
+</code></pre>
+<h3 id="45-efectos-de-las-luces-en-materiales">4.5 Efectos de las Luces en Materiales</h3>
+<p>Los materiales en Three.js interactúan de manera diferente con las luces según su tipo y propiedades. A continuación, se explica cómo las luces afectan a algunos materiales comunes:</p>
+<h4 id="451-meshbasicmaterial">4.5.1 <code>MeshBasicMaterial</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Material básico que no responde a la iluminación. Siempre muestra el color o textura tal como está definido.</li>
+<li><strong>Interacción con luces:</strong> Ninguna. Las luces no afectan este material.</li>
+</ul>
+<p><strong>Uso:</strong></p>
+<pre><code class="language-javascript">const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+</code></pre>
+<h4 id="452-meshlambertmaterial">4.5.2 <code>MeshLambertMaterial</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Material que responde a la iluminación difusa, simulando superficies mate.</li>
+<li><strong>Interacción con luces:</strong> Reacciona a <code>AmbientLight</code> y otras luces que emiten luz difusa.</li>
+</ul>
+<p><strong>Uso:</strong></p>
+<pre><code class="language-javascript">const material = new THREE.MeshLambertMaterial({ color: 0x00ff00 });
+</code></pre>
+<h4 id="453-meshphongmaterial">4.5.3 <code>MeshPhongMaterial</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Material que responde a la iluminación difusa y especular, simulando superficies brillantes.</li>
+<li><strong>Interacción con luces:</strong> Reacciona a todas las fuentes de luz y permite la configuración de reflejos especulares.</li>
+</ul>
+<p><strong>Uso:</strong></p>
+<pre><code class="language-javascript">const material = new THREE.MeshPhongMaterial({ color: 0x0000ff, shininess: 100 });
+</code></pre>
+<h4 id="454-meshstandardmaterial">4.5.4 <code>MeshStandardMaterial</code></h4>
+<ul>
+<li><strong>Descripción:</strong> Material basado en PBR (Physically Based Rendering) que proporciona un realismo superior al simular propiedades físicas de los materiales.</li>
+<li><strong>Interacción con luces:</strong> Reacciona a todas las fuentes de luz, permitiendo configuraciones detalladas como metalicidad y rugosidad.</li>
+</ul>
+<p><strong>Uso:</strong></p>
+<pre><code class="language-javascript">const material = new THREE.MeshStandardMaterial({
+    color: 0xffffff,
+    metalness: 0.5,
+    roughness: 0.5
+});
+</code></pre>
+<h3 id="46-ejemplos-practicos">4.6 Ejemplos Prácticos</h3>
+<p>A continuación, se presentan dos ejemplos que ilustran el uso de diferentes tipos de luces y cómo afectan a los objetos en la escena.</p>
+<h4 id="461-ejemplo-1-escena-con-ambientlight-y-directionallight">4.6.1 Ejemplo 1: Escena con <code>AmbientLight</code> y <code>DirectionalLight</code></h4>
+<p>Este ejemplo muestra cómo combinar una luz ambiental con una luz direccional para iluminar una escena básica con un cubo y un suelo.</p>
+<p><strong>Estructura de Carpetas:</strong></p>
+<pre><code>mi-escena-luces-threejs/
+├── index.html
+└── textures/
+    └── brick_diffuse.jpg
+</code></pre>
+<p><strong>Contenido de <code>index.html</code>:</strong></p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Luces Básicas en Three.js&lt;/title&gt;
+    &lt;style&gt;
+        body { margin: 0; }
+        canvas { display: block; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Enlace a Three.js --&gt;
+    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+        // 1. Crear la escena
+        const scene = new THREE.Scene();
+
+        // 2. Crear la cámara
+        const camera = new THREE.PerspectiveCamera(
+            75,
+            window.innerWidth / window.innerHeight,
+            0.1,
+            1000
+        );
+        camera.position.set(0, 5, 10);
+        camera.lookAt(0, 0, 0);
+
+        // 3. Crear el renderizador
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true; // Habilitar sombras
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.body.appendChild(renderer.domElement);
+
+        // 4. Añadir AmbientLight
+        const ambientLight = new THREE.AmbientLight(0x404040, 1); // Luz ambiental suave
+        scene.add(ambientLight);
+
+        // 5. Añadir DirectionalLight
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(5, 10, 7.5);
+        directionalLight.castShadow = true; // La luz proyecta sombras
+
+        // Configuración de la sombra
+        directionalLight.shadow.mapSize.width = 1024;
+        directionalLight.shadow.mapSize.height = 1024;
+        directionalLight.shadow.camera.near = 0.5;
+        directionalLight.shadow.camera.far = 50;
+        directionalLight.shadow.camera.left = -10;
+        directionalLight.shadow.camera.right = 10;
+        directionalLight.shadow.camera.top = 10;
+        directionalLight.shadow.camera.bottom = -10;
+
+        scene.add(directionalLight);
+
+        // 6. Crear el cubo
+        const geometry = new THREE.BoxGeometry(2, 2, 2);
+        const material = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
+        const cube = new THREE.Mesh(geometry, material);
+        cube.castShadow = true; // El cubo proyecta sombras
+        cube.receiveShadow = true; // El cubo puede recibir sombras
+        scene.add(cube);
+
+        // 7. Crear el suelo
+        const floorGeometry = new THREE.PlaneGeometry(20, 20);
+        const floorMaterial = new THREE.MeshStandardMaterial({ color: 0x808080 });
+        const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+        floor.rotation.x = -Math.PI / 2; // Rotar para que quede horizontal
+        floor.position.y = -1;
+        floor.receiveShadow = true; // El suelo recibe sombras
+        scene.add(floor);
+
+        // 8. Función de animación
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotar el cubo
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+
+            // Renderizar la escena
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // 9. Manejar el redimensionamiento de la ventana
+        window.addEventListener('resize', () =&gt; {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><strong>Resultado Esperado:</strong></p>
+<p>Una escena con un cubo verde giratorio iluminado por una luz ambiental suave y una luz direccional que proyecta sombras sobre un suelo gris. La combinación de luces crea una apariencia equilibrada con profundidad gracias a las sombras.</p>
+<h4 id="462-ejemplo-2-uso-de-spotlight-con-sombras">4.6.2 Ejemplo 2: Uso de <code>SpotLight</code> con Sombras</h4>
+<p>Este ejemplo demuestra cómo utilizar una <code>SpotLight</code> para iluminar un objeto específico y crear sombras dinámicas.</p>
+<p><strong>Estructura de Carpetas:</strong></p>
+<pre><code>mi-escena-spotlight-threejs/
+├── index.html
+└── textures/
+    └── floor_texture.jpg
+</code></pre>
+<p><strong>Contenido de <code>index.html</code>:</strong></p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;SpotLight en Three.js&lt;/title&gt;
+    &lt;style&gt;
+        body { margin: 0; }
+        canvas { display: block; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Enlace a Three.js --&gt;
+    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+        // 1. Crear la escena
+        const scene = new THREE.Scene();
+
+        // 2. Crear la cámara
+        const camera = new THREE.PerspectiveCamera(
+            75,
+            window.innerWidth / window.innerHeight,
+            0.1,
+            1000
+        );
+        camera.position.set(0, 5, 15);
+        camera.lookAt(0, 0, 0);
+
+        // 3. Crear el renderizador
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true; // Habilitar sombras
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.body.appendChild(renderer.domElement);
+
+        // 4. Añadir SpotLight
+        const spotLight = new THREE.SpotLight(0xffffff, 1);
+        spotLight.position.set(0, 10, 10);
+        spotLight.angle = Math.PI / 6;
+        spotLight.penumbra = 0.1;
+        spotLight.decay = 2;
+        spotLight.distance = 50;
+        spotLight.castShadow = true; // La luz proyecta sombras
+
+        // Configuración de la sombra
+        spotLight.shadow.mapSize.width = 1024;
+        spotLight.shadow.mapSize.height = 1024;
+        spotLight.shadow.camera.near = 0.5;
+        spotLight.shadow.camera.far = 50;
+        scene.add(spotLight);
+
+        // 5. Crear el objeto a iluminar
+        const geometry = new THREE.TorusKnotGeometry(1, 0.4, 100, 16);
+        const material = new THREE.MeshStandardMaterial({ color: 0x156289, emissive: 0x072534, metalness: 0.5, roughness: 0.1 });
+        const torusKnot = new THREE.Mesh(geometry, material);
+        torusKnot.castShadow = true; // El objeto proyecta sombras
+        torusKnot.receiveShadow = true; // El objeto puede recibir sombras
+        scene.add(torusKnot);
+
+        // 6. Crear el suelo con textura
+        const floorGeometry = new THREE.PlaneGeometry(50, 50);
+        const textureLoader = new THREE.TextureLoader();
+        const floorTexture = textureLoader.load('textures/floor_texture.jpg');
+        floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
+        floorTexture.repeat.set(10, 10);
+        const floorMaterial = new THREE.MeshStandardMaterial({ map: floorTexture });
+        const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+        floor.rotation.x = -Math.PI / 2; // Rotar para que quede horizontal
+        floor.position.y = -3;
+        floor.receiveShadow = true; // El suelo recibe sombras
+        scene.add(floor);
+
+        // 7. Función de animación
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotar el objeto
+            torusKnot.rotation.x += 0.01;
+            torusKnot.rotation.y += 0.01;
+
+            // Renderizar la escena
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // 8. Manejar el redimensionamiento de la ventana
+        window.addEventListener('resize', () =&gt; {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><strong>Explicación del Código:</strong></p>
+<ol>
+<li><strong>SpotLight:</strong></li>
+<li>Se crea una <code>SpotLight</code> blanca con intensidad 1.</li>
+<li>Posicionada en <code>(0, 10, 10)</code> y apuntando hacia el centro de la escena.</li>
+<li>Configurada con un ángulo de cono de <code>Math.PI / 6</code> (30 grados) y una penumbra de 0.1 para transiciones suaves.</li>
+<li>
+<p>Habilitada para proyectar sombras y configurada para mejorar la calidad de las sombras.</p>
+</li>
+<li>
+<p><strong>Objeto Iluminado:</strong></p>
+</li>
+<li>Se crea un <code>TorusKnotGeometry</code> con un material <code>MeshStandardMaterial</code> que responde a la iluminación.</li>
+<li>
+<p>El objeto está configurado para proyectar y recibir sombras.</p>
+</li>
+<li>
+<p><strong>Suelo con Textura:</strong></p>
+</li>
+<li>Se crea un plano grande que actúa como suelo.</li>
+<li>Se carga una textura (<code>floor_texture.jpg</code>) y se aplica al material del suelo.</li>
+<li>La textura se repite varias veces para cubrir toda la superficie del suelo.</li>
+<li>
+<p>El suelo está configurado para recibir sombras.</p>
+</li>
+<li>
+<p><strong>Animación:</strong></p>
+</li>
+<li>Se rota el <code>TorusKnot</code> en cada frame para mostrar la interacción de las sombras dinámicas con la luz.</li>
+</ol>
+<p><strong>Resultado Esperado:</strong></p>
+<p>Una escena con un <code>TorusKnot</code> giratorio iluminado por una <code>SpotLight</code>, proyectando sombras dinámicas sobre un suelo texturizado. La luz focalizada del <code>SpotLight</code> crea áreas iluminadas y sombras realistas, mejorando el realismo de la escena.</p>
+<h3 id="47-mejores-practicas">4.7 Mejores Prácticas</h3>
+<p><strong>Uso de Helpers para Depuración:</strong>
+   - Utiliza <code>THREE.DirectionalLightHelper</code>, <code>THREE.SpotLightHelper</code> y otros helpers para visualizar y ajustar las posiciones y direcciones de las luces durante el desarrollo.</p>
+<p><strong>Ejemplo de Uso de Helpers:</strong></p>
+<pre><code class="language-javascript">// Añadir un helper para la DirectionalLight
+const directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight, 5);
+scene.add(directionalLightHelper);
+
+// Añadir un helper para la SpotLight
+const spotLightHelper = new THREE.SpotLightHelper(spotLight);
+scene.add(spotLightHelper);
+
+// Actualizar los helpers en la animación si la luz se mueve
+function animate() {
+    requestAnimationFrame(animate);
+
+    // Rotar el objeto
+    torusKnot.rotation.x += 0.01;
+    torusKnot.rotation.y += 0.01;
+
+    // Actualizar helpers
+    directionalLightHelper.update();
+    spotLightHelper.update();
+
+    // Renderizar la escena
+    renderer.render(scene, camera);
+}
+
+animate();
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>

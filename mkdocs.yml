@@ -1,0 +1,15 @@
+site_name: Guia de modelado 3D
+
+theme:
+  name: material
+  
+nav:
+  - curso:
+    - "Curso/1. Introducción a Three.js.md"
+    -  "Curso/2. Estructura Básica de una Escena en Three.js.md"
+    - "Curso/3. Geometrías y Materiales.md"
+    - "Curso/4. Luces en Three.js.md"
+    - "Curso/5. Cámaras y Control de la Cámara.md"
+    - "Curso/6. Creación y Manipulación de Objetos 3D.md"
+
+
