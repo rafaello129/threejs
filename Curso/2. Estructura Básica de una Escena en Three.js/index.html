@@ -1,0 +1,892 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../1.%20Introducci%C3%B3n%20a%20Three.js/">
+      
+      
+        <link rel="next" href="../3.%20Geometr%C3%ADas%20y%20Materiales/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.41">
+    
+    
+      
+        <title>2. Estructura Básica de una Escena en Three.js - Guia de modelado 3D</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#21-componentes-principales-de-una-escena" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Guia de modelado 3D" class="md-header__button md-logo" aria-label="Guia de modelado 3D" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Guia de modelado 3D
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2. Estructura Básica de una Escena en Three.js
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Guia de modelado 3D" class="md-nav__button md-logo" aria-label="Guia de modelado 3D" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Guia de modelado 3D
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    curso
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            curso
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.%20Introducci%C3%B3n%20a%20Three.js/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introducción a Three.js
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    2. Estructura Básica de una Escena en Three.js
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    2. Estructura Básica de una Escena en Three.js
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21-componentes-principales-de-una-escena" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Componentes Principales de una Escena
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-descripcion-de-los-componentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Descripción de los Componentes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 Descripción de los Componentes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-escena-threescene" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.1 Escena (THREE.Scene)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-camara-threecamera" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.2 Cámara (THREE.Camera)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223-renderizador-threerenderer" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.3 Renderizador (THREE.Renderer)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-ciclo-de-renderizado" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Ciclo de Renderizado
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-manejo-del-redimensionamiento-de-la-ventana" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 Manejo del Redimensionamiento de la Ventana
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-ejemplo-completo-creacion-de-una-escena-basica" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 Ejemplo Completo: Creación de una Escena Básica
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5 Ejemplo Completo: Creación de una Escena Básica">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#251-estructura-de-carpetas" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.1 Estructura de Carpetas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#252-contenido-de-indexhtml" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.2 Contenido de index.html
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#253-ejecutar-el-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.3 Ejecutar el Proyecto
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.%20Geometr%C3%ADas%20y%20Materiales/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3. Geometrías y Materiales
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4.%20Luces%20en%20Three.js/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Luces en Three.js
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.%20C%C3%A1maras%20y%20Control%20de%20la%20C%C3%A1mara/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Cámaras y Control de la Cámara
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.%20Creaci%C3%B3n%20y%20Manipulaci%C3%B3n%20de%20Objetos%203D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Creación y Manipulación de Objetos 3D
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21-componentes-principales-de-una-escena" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Componentes Principales de una Escena
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-descripcion-de-los-componentes" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 Descripción de los Componentes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 Descripción de los Componentes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221-escena-threescene" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.1 Escena (THREE.Scene)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-camara-threecamera" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.2 Cámara (THREE.Camera)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223-renderizador-threerenderer" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.3 Renderizador (THREE.Renderer)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-ciclo-de-renderizado" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Ciclo de Renderizado
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-manejo-del-redimensionamiento-de-la-ventana" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 Manejo del Redimensionamiento de la Ventana
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-ejemplo-completo-creacion-de-una-escena-basica" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 Ejemplo Completo: Creación de una Escena Básica
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5 Ejemplo Completo: Creación de una Escena Básica">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#251-estructura-de-carpetas" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.1 Estructura de Carpetas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#252-contenido-de-indexhtml" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.2 Contenido de index.html
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#253-ejecutar-el-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.3 Ejecutar el Proyecto
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>2. Estructura Básica de una Escena en Three.js</h1>
+
+<h3 id="21-componentes-principales-de-una-escena">2.1 Componentes Principales de una Escena</h3>
+<p>Para crear una escena 3D en Three.js, necesitas comprender y configurar tres componentes fundamentales:</p>
+<ol>
+<li><strong>Escena (<code>THREE.Scene</code>)</strong></li>
+<li><strong>Cámara (<code>THREE.Camera</code>)</strong></li>
+<li><strong>Renderizador (<code>THREE.Renderer</code>)</strong></li>
+</ol>
+<p>Estos componentes trabajan en conjunto para definir qué se muestra en la pantalla, desde qué perspectiva y cómo se renderiza visualmente.</p>
+<h3 id="22-descripcion-de-los-componentes">2.2 Descripción de los Componentes</h3>
+<h4 id="221-escena-threescene">2.2.1 Escena (<code>THREE.Scene</code>)</h4>
+<p>La escena es el contenedor principal donde se agregan todos los objetos, luces y otros elementos 3D. Actúa como un espacio tridimensional donde se organiza todo lo que se desea visualizar.</p>
+<p><strong>Características clave:</strong></p>
+<ul>
+<li><strong>Contenedor de objetos:</strong> Puedes agregar mallas (<code>Mesh</code>), luces (<code>Light</code>), cámaras adicionales, y más.</li>
+<li><strong>Jerarquía:</strong> Utiliza una estructura de árbol donde los objetos pueden contener otros objetos, permitiendo agrupaciones y transformaciones jerárquicas.</li>
+<li><strong>Propiedades:</strong> Permite establecer propiedades globales como el fondo de la escena.</li>
+</ul>
+<p><strong>Ejemplo de creación de una escena:</strong></p>
+<pre><code class="language-javascript">const scene = new THREE.Scene();
+</code></pre>
+<h4 id="222-camara-threecamera">2.2.2 Cámara (<code>THREE.Camera</code>)</h4>
+<p>La cámara determina desde qué perspectiva se visualiza la escena. Existen diferentes tipos de cámaras en Three.js, pero las más comunes son:</p>
+<ul>
+<li><strong>Cámara en Perspectiva (<code>THREE.PerspectiveCamera</code>):</strong> Simula la percepción humana con perspectiva, donde los objetos más lejanos parecen más pequeños.</li>
+<li><strong>Cámara Ortográfica (<code>THREE.OrthographicCamera</code>):</strong> Muestra los objetos sin perspectiva, manteniendo las mismas dimensiones independientemente de la distancia.</li>
+</ul>
+<p>Para este tema, nos enfocaremos en la <strong>Cámara en Perspectiva</strong>.</p>
+<p><strong>Parámetros clave de <code>PerspectiveCamera</code>:</strong></p>
+<ul>
+<li><strong>Campo de Visión (<code>fov</code>):</strong> Ángulo de visión en grados.</li>
+<li><strong>Aspect Ratio (<code>aspect</code>):</strong> Proporción entre el ancho y alto de la pantalla.</li>
+<li><strong>Plano cercano (<code>near</code>):</strong> Distancia mínima desde la cámara donde los objetos comienzan a ser visibles.</li>
+<li><strong>Plano lejano (<code>far</code>):</strong> Distancia máxima desde la cámara donde los objetos dejan de ser visibles.</li>
+</ul>
+<p><strong>Ejemplo de creación de una cámara en perspectiva:</strong></p>
+<pre><code class="language-javascript">const camera = new THREE.PerspectiveCamera(
+    75, // Campo de visión en grados
+    window.innerWidth / window.innerHeight, // Aspect ratio
+    0.1, // Plano cercano
+    1000 // Plano lejano
+);
+</code></pre>
+<h4 id="223-renderizador-threerenderer">2.2.3 Renderizador (<code>THREE.Renderer</code>)</h4>
+<p>El renderizador es responsable de dibujar la escena desde la perspectiva de la cámara en el lienzo (<code>canvas</code>) HTML. El tipo más común es el <strong>Renderizador WebGL</strong> (<code>THREE.WebGLRenderer</code>), que utiliza la API WebGL para renderizar gráficos 3D.</p>
+<p><strong>Características clave:</strong></p>
+<ul>
+<li><strong>Renderización en tiempo real:</strong> Actualiza la visualización continuamente para animaciones e interacciones.</li>
+<li><strong>Configuración de tamaño:</strong> Determina el tamaño del lienzo donde se renderiza la escena.</li>
+<li><strong>Adjuntar al DOM:</strong> Añade el lienzo al documento HTML para que sea visible en la página.</li>
+</ul>
+<p><strong>Ejemplo de creación y configuración del renderizador:</strong></p>
+<pre><code class="language-javascript">const renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight); // Configura el tamaño del lienzo
+document.body.appendChild(renderer.domElement); // Añade el lienzo al DOM
+</code></pre>
+<h3 id="23-ciclo-de-renderizado">2.3 Ciclo de Renderizado</h3>
+<p>El ciclo de renderizado es una función que actualiza y dibuja la escena en cada frame, permitiendo animaciones y actualizaciones dinámicas. Utiliza <code>requestAnimationFrame</code> para sincronizar la renderización con la tasa de refresco del navegador, optimizando el rendimiento.</p>
+<p><strong>Pasos básicos del ciclo de renderizado:</strong></p>
+<ol>
+<li><strong>Actualizar objetos:</strong> Modificar las propiedades de los objetos (por ejemplo, rotaciones, posiciones).</li>
+<li><strong>Renderizar la escena:</strong> Dibujar la escena desde la perspectiva de la cámara.</li>
+<li><strong>Solicitar el siguiente frame:</strong> Llamar nuevamente a la función de animación para el próximo frame.</li>
+</ol>
+<p><strong>Ejemplo de ciclo de renderizado:</strong></p>
+<pre><code class="language-javascript">function animate() {
+    requestAnimationFrame(animate); // Solicita el siguiente frame
+
+    // Actualiza objetos aquí (por ejemplo, rotaciones)
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
+
+    // Renderiza la escena
+    renderer.render(scene, camera);
+}
+
+animate(); // Inicia el ciclo de animación
+</code></pre>
+<h3 id="24-manejo-del-redimensionamiento-de-la-ventana">2.4 Manejo del Redimensionamiento de la Ventana</h3>
+<p>Es importante que la escena se adapte dinámicamente al tamaño de la ventana del navegador para mantener la proporción y la calidad visual. Esto implica actualizar tanto el renderizador como la cámara cuando la ventana cambia de tamaño.</p>
+<p><strong>Implementación del manejo de redimensionamiento:</strong></p>
+<pre><code class="language-javascript">window.addEventListener('resize', () =&gt; {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    // Actualiza el tamaño del renderizador
+    renderer.setSize(width, height);
+
+    // Actualiza la proporción de la cámara
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+});
+</code></pre>
+<h3 id="25-ejemplo-completo-creacion-de-una-escena-basica">2.5 Ejemplo Completo: Creación de una Escena Básica</h3>
+<p>A continuación, se presenta un ejemplo completo que integra todos los conceptos mencionados anteriormente para crear una escena básica con un cubo giratorio.</p>
+<h4 id="251-estructura-de-carpetas">2.5.1 Estructura de Carpetas</h4>
+<pre><code>mi-escena-basica-threejs/
+├── index.html
+└── js/
+    └── three.min.js
+</code></pre>
+<h4 id="252-contenido-de-indexhtml">2.5.2 Contenido de <code>index.html</code></h4>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Escena Básica con Three.js&lt;/title&gt;
+    &lt;style&gt;
+        body { margin: 0; }
+        canvas { display: block; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Enlace a Three.js --&gt;
+    &lt;script src=&quot;js/three.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+        // 1. Crear la escena
+        const scene = new THREE.Scene();
+
+        // 2. Crear la cámara
+        const camera = new THREE.PerspectiveCamera(
+            75, // Campo de visión
+            window.innerWidth / window.innerHeight, // Aspect ratio
+            0.1, // Plano cercano
+            1000 // Plano lejano
+        );
+
+        // 3. Crear el renderizador
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // 4. Crear una geometría y material (un cubo)
+        const geometry = new THREE.BoxGeometry();
+        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube); // Añadir el cubo a la escena
+
+        // 5. Posicionar la cámara
+        camera.position.z = 5;
+
+        // 6. Función de animación
+        function animate() {
+            requestAnimationFrame(animate); // Solicita el siguiente frame
+
+            // Rotar el cubo
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+
+            // Renderizar la escena
+            renderer.render(scene, camera);
+        }
+
+        animate(); // Inicia la animación
+
+        // 7. Manejar el redimensionamiento de la ventana
+        window.addEventListener('resize', () =&gt; {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h4 id="253-ejecutar-el-proyecto">2.5.3 Ejecutar el Proyecto</h4>
+<ol>
+<li><strong>Estructura de carpetas:</strong></li>
+<li>Crea una carpeta llamada <code>mi-escena-basica-threejs</code>.</li>
+<li>Dentro de ella, crea una subcarpeta <code>js</code> y descarga el archivo <code>three.min.js</code> desde el <a href="https://threejs.org/build/three.min.js">sitio oficial de Three.js</a>.</li>
+<li>
+<p>Crea el archivo <code>index.html</code> con el contenido proporcionado anteriormente.</p>
+</li>
+<li>
+<p><strong>Abrir el archivo en el navegador:</strong></p>
+</li>
+<li>Abre el archivo <code>index.html</code> en tu navegador favorito (Chrome, Firefox, Edge, Safari).</li>
+<li>Deberías ver un cubo verde girando en el centro de la pantalla.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>

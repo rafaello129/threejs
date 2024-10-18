@@ -1,0 +1,1488 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../2.%20Estructura%20B%C3%A1sica%20de%20una%20Escena%20en%20Three.js/">
+      
+      
+        <link rel="next" href="../4.%20Luces%20en%20Three.js/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.41">
+    
+    
+      
+        <title>3. Geometrías y Materiales - Guia de modelado 3D</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.0253249f.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#31-introduccion-a-las-geometrias-y-materiales" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Guia de modelado 3D" class="md-header__button md-logo" aria-label="Guia de modelado 3D" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Guia de modelado 3D
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              3. Geometrías y Materiales
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Guia de modelado 3D" class="md-nav__button md-logo" aria-label="Guia de modelado 3D" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Guia de modelado 3D
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_1" id="__nav_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    curso
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            curso
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.%20Introducci%C3%B3n%20a%20Three.js/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1. Introducción a Three.js
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.%20Estructura%20B%C3%A1sica%20de%20una%20Escena%20en%20Three.js/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2. Estructura Básica de una Escena en Three.js
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    3. Geometrías y Materiales
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    3. Geometrías y Materiales
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#31-introduccion-a-las-geometrias-y-materiales" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Introducción a las Geometrías y Materiales
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32-geometrias-basicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Geometrías Básicas
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 Geometrías Básicas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321-boxgeometry-caja" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.1 BoxGeometry (Caja)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322-spheregeometry-esfera" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.2 SphereGeometry (Esfera)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#323-planegeometry-plano" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.3 PlaneGeometry (Plano)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#324-cylindergeometry-cilindro" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.4 CylinderGeometry (Cilindro)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#325-torusgeometry-toro" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.5 TorusGeometry (Toro)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#326-geometrias-personalizadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.6 Geometrías Personalizadas
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#33-materiales-basicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Materiales Básicos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3 Materiales Básicos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#331-meshbasicmaterial" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3.1 MeshBasicMaterial
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#332-meshlambertmaterial" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3.2 MeshLambertMaterial
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#333-meshphongmaterial" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3.3 MeshPhongMaterial
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#334-meshstandardmaterial" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3.4 MeshStandardMaterial
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#34-aplicacion-de-colores-y-texturas" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 Aplicación de Colores y Texturas
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4 Aplicación de Colores y Texturas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#341-aplicar-color-solido" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4.1 Aplicar Color Sólido
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#342-aplicar-texturas" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4.2 Aplicar Texturas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#343-uso-de-mapas-de-materiales" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4.3 Uso de Mapas de Materiales
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#35-ejemplo-completo-cubo-con-textura" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5 Ejemplo Completo: Cubo con Textura
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.5 Ejemplo Completo: Cubo con Textura">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#351-estructura-de-carpetas" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5.1 Estructura de Carpetas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#352-contenido-de-indexhtml" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5.2 Contenido de index.html
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#353-explicacion-del-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5.3 Explicación del Código
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#354-recursos-de-texturas" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5.4 Recursos de Texturas
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#36-manipulacion-de-materiales" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.6 Manipulación de Materiales
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.6 Manipulación de Materiales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#361-cambiar-propiedades-de-materiales-en-tiempo-de-ejecucion" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.6.1 Cambiar Propiedades de Materiales en Tiempo de Ejecución
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#362-transparencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.6.2 Transparencia
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#363-wireframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.6.3 Wireframe
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#37-geometrias-compuestas-y-agrupacion-de-objetos" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.7 Geometrías Compuestas y Agrupación de Objetos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.7 Geometrías Compuestas y Agrupación de Objetos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#371-union-de-geometrias" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.7.1 Unión de Geometrías
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#372-uso-de-threeinstancedmesh" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.7.2 Uso de THREE.InstancedMesh
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4.%20Luces%20en%20Three.js/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    4. Luces en Three.js
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.%20C%C3%A1maras%20y%20Control%20de%20la%20C%C3%A1mara/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    5. Cámaras y Control de la Cámara
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.%20Creaci%C3%B3n%20y%20Manipulaci%C3%B3n%20de%20Objetos%203D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    6. Creación y Manipulación de Objetos 3D
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#31-introduccion-a-las-geometrias-y-materiales" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Introducción a las Geometrías y Materiales
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32-geometrias-basicas" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Geometrías Básicas
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 Geometrías Básicas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321-boxgeometry-caja" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.1 BoxGeometry (Caja)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322-spheregeometry-esfera" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.2 SphereGeometry (Esfera)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#323-planegeometry-plano" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.3 PlaneGeometry (Plano)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#324-cylindergeometry-cilindro" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.4 CylinderGeometry (Cilindro)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#325-torusgeometry-toro" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.5 TorusGeometry (Toro)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#326-geometrias-personalizadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2.6 Geometrías Personalizadas
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#33-materiales-basicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Materiales Básicos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3 Materiales Básicos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#331-meshbasicmaterial" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3.1 MeshBasicMaterial
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#332-meshlambertmaterial" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3.2 MeshLambertMaterial
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#333-meshphongmaterial" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3.3 MeshPhongMaterial
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#334-meshstandardmaterial" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3.4 MeshStandardMaterial
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#34-aplicacion-de-colores-y-texturas" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 Aplicación de Colores y Texturas
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4 Aplicación de Colores y Texturas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#341-aplicar-color-solido" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4.1 Aplicar Color Sólido
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#342-aplicar-texturas" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4.2 Aplicar Texturas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#343-uso-de-mapas-de-materiales" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4.3 Uso de Mapas de Materiales
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#35-ejemplo-completo-cubo-con-textura" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5 Ejemplo Completo: Cubo con Textura
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.5 Ejemplo Completo: Cubo con Textura">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#351-estructura-de-carpetas" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5.1 Estructura de Carpetas
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#352-contenido-de-indexhtml" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5.2 Contenido de index.html
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#353-explicacion-del-codigo" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5.3 Explicación del Código
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#354-recursos-de-texturas" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5.4 Recursos de Texturas
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#36-manipulacion-de-materiales" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.6 Manipulación de Materiales
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.6 Manipulación de Materiales">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#361-cambiar-propiedades-de-materiales-en-tiempo-de-ejecucion" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.6.1 Cambiar Propiedades de Materiales en Tiempo de Ejecución
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#362-transparencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.6.2 Transparencia
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#363-wireframe" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.6.3 Wireframe
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#37-geometrias-compuestas-y-agrupacion-de-objetos" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.7 Geometrías Compuestas y Agrupación de Objetos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.7 Geometrías Compuestas y Agrupación de Objetos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#371-union-de-geometrias" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.7.1 Unión de Geometrías
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#372-uso-de-threeinstancedmesh" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.7.2 Uso de THREE.InstancedMesh
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>3. Geometrías y Materiales</h1>
+
+<h3 id="31-introduccion-a-las-geometrias-y-materiales">3.1 Introducción a las Geometrías y Materiales</h3>
+<p>En Three.js, <strong>las geometrías</strong> definen la forma de los objetos 3D, mientras que <strong>los materiales</strong> determinan cómo se ven esas formas, incluyendo su color, textura, reflejos y otros efectos visuales. La combinación de geometrías y materiales te permite crear una amplia variedad de objetos con diferentes apariencias y comportamientos en tu escena.</p>
+<h3 id="32-geometrias-basicas">3.2 Geometrías Básicas</h3>
+<p>Three.js ofrece una variedad de geometrías predefinidas que puedes utilizar para crear objetos 3D comunes. A continuación, se describen algunas de las geometrías más utilizadas:</p>
+<h4 id="321-boxgeometry-caja">3.2.1 BoxGeometry (Caja)</h4>
+<p>Crea una caja o cubo con dimensiones especificadas.</p>
+<p><strong>Sintaxis:</strong></p>
+<pre><code class="language-javascript">const geometry = new THREE.BoxGeometry(ancho, alto, profundidad, segmentosAncho, segmentosAlto, segmentosProfundidad);
+</code></pre>
+<p><strong>Ejemplo:</strong></p>
+<pre><code class="language-javascript">const geometry = new THREE.BoxGeometry(1, 1, 1); // Caja de 1 unidad en cada dimensión
+</code></pre>
+<h4 id="322-spheregeometry-esfera">3.2.2 SphereGeometry (Esfera)</h4>
+<p>Crea una esfera con radio y segmentos especificados.</p>
+<p><strong>Sintaxis:</strong></p>
+<pre><code class="language-javascript">const geometry = new THREE.SphereGeometry(radio, segmentosAncho, segmentosAlto);
+</code></pre>
+<p><strong>Ejemplo:</strong></p>
+<pre><code class="language-javascript">const geometry = new THREE.SphereGeometry(1, 32, 32); // Esfera con radio 1 y 32 segmentos
+</code></pre>
+<h4 id="323-planegeometry-plano">3.2.3 PlaneGeometry (Plano)</h4>
+<p>Crea un plano bidimensional.</p>
+<p><strong>Sintaxis:</strong></p>
+<pre><code class="language-javascript">const geometry = new THREE.PlaneGeometry(ancho, alto, segmentosAncho, segmentosAlto);
+</code></pre>
+<p><strong>Ejemplo:</strong></p>
+<pre><code class="language-javascript">const geometry = new THREE.PlaneGeometry(5, 5); // Plano de 5x5 unidades
+</code></pre>
+<h4 id="324-cylindergeometry-cilindro">3.2.4 CylinderGeometry (Cilindro)</h4>
+<p>Crea un cilindro con radio superior e inferior, altura y segmentos especificados.</p>
+<p><strong>Sintaxis:</strong></p>
+<pre><code class="language-javascript">const geometry = new THREE.CylinderGeometry(radioSuperior, radioInferior, altura, segmentosRadiales, segmentosAltura);
+</code></pre>
+<p><strong>Ejemplo:</strong></p>
+<pre><code class="language-javascript">const geometry = new THREE.CylinderGeometry(1, 1, 2, 32); // Cilindro con radio 1, altura 2 y 32 segmentos radiales
+</code></pre>
+<h4 id="325-torusgeometry-toro">3.2.5 TorusGeometry (Toro)</h4>
+<p>Crea un toro (donut) con radio mayor y menor, y segmentos especificados.</p>
+<p><strong>Sintaxis:</strong></p>
+<pre><code class="language-javascript">const geometry = new THREE.TorusGeometry(radioMayor, radioMenor, segmentosRadiales, segmentosTubulares);
+</code></pre>
+<p><strong>Ejemplo:</strong></p>
+<pre><code class="language-javascript">const geometry = new THREE.TorusGeometry(1, 0.4, 16, 100); // Toro con radio mayor 1, radio menor 0.4, 16 segmentos radiales y 100 tubulares
+</code></pre>
+<h4 id="326-geometrias-personalizadas">3.2.6 Geometrías Personalizadas</h4>
+<p>Además de las geometrías predefinidas, puedes crear geometrías personalizadas utilizando <code>THREE.BufferGeometry</code> y definiendo tus propios vértices y caras. Esto es útil para objetos más complejos o específicos que no se pueden lograr con las geometrías básicas.</p>
+<p><strong>Ejemplo de creación de una geometría personalizada:</strong></p>
+<pre><code class="language-javascript">const vertices = new Float32Array([
+    -1.0, -1.0,  1.0,
+     1.0, -1.0,  1.0,
+     1.0,  1.0,  1.0,
+    -1.0,  1.0,  1.0,
+    -1.0, -1.0, -1.0,
+     1.0, -1.0, -1.0,
+     1.0,  1.0, -1.0,
+    -1.0,  1.0, -1.0,
+]);
+
+const indices = [
+    0, 1, 2,  0, 2, 3, // Front face
+    4, 5, 6,  4, 6, 7, // Back face
+    0, 4, 7,  0, 7, 3, // Left face
+    1, 5, 6,  1, 6, 2, // Right face
+    3, 2, 6,  3, 6, 7, // Top face
+    0, 1, 5,  0, 5, 4  // Bottom face
+];
+
+const geometry = new THREE.BufferGeometry();
+geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+geometry.setIndex(indices);
+geometry.computeVertexNormals();
+</code></pre>
+<h3 id="33-materiales-basicos">3.3 Materiales Básicos</h3>
+<p>Three.js proporciona una variedad de materiales que puedes aplicar a tus geometrías para definir su apariencia. A continuación, se describen algunos de los materiales más comunes:</p>
+<h4 id="331-meshbasicmaterial">3.3.1 MeshBasicMaterial</h4>
+<p>Un material básico que no responde a la iluminación. Es útil para objetos que deben mantenerse siempre visibles con un color constante.</p>
+<p><strong>Sintaxis:</strong></p>
+<pre><code class="language-javascript">const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+</code></pre>
+<p><strong>Propiedades comunes:</strong></p>
+<ul>
+<li><code>color</code>: Color del material.</li>
+<li><code>wireframe</code>: Muestra el objeto como un wireframe (malla de líneas).</li>
+<li><code>map</code>: Aplicar una textura al material.</li>
+</ul>
+<h4 id="332-meshlambertmaterial">3.3.2 MeshLambertMaterial</h4>
+<p>Un material que responde a la iluminación de manera difusa. Es ideal para superficies mate sin reflejos brillantes.</p>
+<p><strong>Sintaxis:</strong></p>
+<pre><code class="language-javascript">const material = new THREE.MeshLambertMaterial({ color: 0x00ff00 });
+</code></pre>
+<p><strong>Propiedades comunes:</strong></p>
+<ul>
+<li><code>color</code>: Color del material.</li>
+<li><code>emissive</code>: Color que el material emite (autoiluminación).</li>
+<li><code>map</code>: Aplicar una textura al material.</li>
+</ul>
+<h4 id="333-meshphongmaterial">3.3.3 MeshPhongMaterial</h4>
+<p>Un material que responde a la iluminación con reflejos especulares, proporcionando un aspecto brillante y realista.</p>
+<p><strong>Sintaxis:</strong></p>
+<pre><code class="language-javascript">const material = new THREE.MeshPhongMaterial({ color: 0x0000ff, shininess: 100 });
+</code></pre>
+<p><strong>Propiedades comunes:</strong></p>
+<ul>
+<li><code>color</code>: Color del material.</li>
+<li><code>shininess</code>: Controla el brillo de los reflejos especulares.</li>
+<li><code>specular</code>: Color de los reflejos especulares.</li>
+<li><code>map</code>: Aplicar una textura al material.</li>
+</ul>
+<h4 id="334-meshstandardmaterial">3.3.4 MeshStandardMaterial</h4>
+<p>Un material físico estándar que utiliza el modelo PBR (Physically Based Rendering) para lograr resultados altamente realistas.</p>
+<p><strong>Sintaxis:</strong></p>
+<pre><code class="language-javascript">const material = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.5, roughness: 0.5 });
+</code></pre>
+<p><strong>Propiedades comunes:</strong></p>
+<ul>
+<li><code>color</code>: Color del material.</li>
+<li><code>metalness</code>: Define si el material es metálico.</li>
+<li><code>roughness</code>: Define qué tan rugosa es la superficie.</li>
+<li><code>map</code>: Aplicar una textura al material.</li>
+<li><code>normalMap</code>: Aplicar un mapa de normales para simular detalles en la superficie.</li>
+<li><code>envMap</code>: Mapa de entorno para reflejos.</li>
+</ul>
+<h3 id="34-aplicacion-de-colores-y-texturas">3.4 Aplicación de Colores y Texturas</h3>
+<h4 id="341-aplicar-color-solido">3.4.1 Aplicar Color Sólido</h4>
+<p>Puedes definir un color sólido para un material utilizando la propiedad <code>color</code>.</p>
+<p><strong>Ejemplo:</strong></p>
+<pre><code class="language-javascript">const material = new THREE.MeshBasicMaterial({ color: 0xff5733 }); // Naranja rojizo
+</code></pre>
+<h4 id="342-aplicar-texturas">3.4.2 Aplicar Texturas</h4>
+<p>Las texturas son imágenes que se aplican a las superficies de los objetos para agregar detalles visuales. Three.js utiliza el cargador de texturas (<code>THREE.TextureLoader</code>) para cargar y aplicar texturas a los materiales.</p>
+<p><strong>Paso 1: Cargar la textura</strong></p>
+<pre><code class="language-javascript">const textureLoader = new THREE.TextureLoader();
+const textura = textureLoader.load('ruta/a/tu/textura.jpg');
+</code></pre>
+<p><strong>Paso 2: Aplicar la textura al material</strong></p>
+<pre><code class="language-javascript">const material = new THREE.MeshBasicMaterial({ map: textura });
+</code></pre>
+<p><strong>Ejemplo Completo:</strong></p>
+<pre><code class="language-javascript">const textureLoader = new THREE.TextureLoader();
+const textura = textureLoader.load('textures/brick_diffuse.jpg'); // Ruta a la textura
+
+const material = new THREE.MeshBasicMaterial({ map: textura });
+
+const geometry = new THREE.BoxGeometry(1, 1, 1);
+const cubo = new THREE.Mesh(geometry, material);
+scene.add(cubo);
+</code></pre>
+<h4 id="343-uso-de-mapas-de-materiales">3.4.3 Uso de Mapas de Materiales</h4>
+<p>Además del mapa de color (<code>map</code>), existen otros tipos de mapas que puedes utilizar para mejorar la apariencia de tus materiales:</p>
+<ul>
+<li><strong>Normal Map (<code>normalMap</code>):</strong> Simula detalles en la superficie sin aumentar el número de polígonos.</li>
+</ul>
+<p><strong>Ejemplo:</strong></p>
+<p><code>javascript
+  const normalMap = textureLoader.load('textures/brick_normal.jpg');
+  const material = new THREE.MeshStandardMaterial({ map: textura, normalMap: normalMap });</code></p>
+<ul>
+<li>
+<p><strong>Specular Map (<code>specularMap</code>):</strong> Define las áreas que reflejan la luz de manera especular.</p>
+</li>
+<li>
+<p><strong>Emissive Map (<code>emissiveMap</code>):</strong> Define las áreas que emiten luz.</p>
+</li>
+<li>
+<p><strong>Displacement Map (<code>displacementMap</code>):</strong> Desplaza los vértices de la geometría según la textura, creando relieves.</p>
+</li>
+</ul>
+<h3 id="35-ejemplo-completo-cubo-con-textura">3.5 Ejemplo Completo: Cubo con Textura</h3>
+<p>A continuación, se presenta un ejemplo completo que crea un cubo y le aplica una textura de ladrillo, utilizando un material que responde a la iluminación para obtener un efecto más realista.</p>
+<h4 id="351-estructura-de-carpetas">3.5.1 Estructura de Carpetas</h4>
+<pre><code>mi-escena-textura-threejs/
+├── index.html
+├── js/
+│   └── three.min.js
+├── textures/
+│   ├── brick_diffuse.jpg
+│   └── brick_normal.jpg
+</code></pre>
+<h4 id="352-contenido-de-indexhtml">3.5.2 Contenido de <code>index.html</code></h4>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Cubo con Textura en Three.js&lt;/title&gt;
+    &lt;style&gt;
+        body { margin: 0; }
+        canvas { display: block; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Enlace a Three.js --&gt;
+    &lt;script src=&quot;js/three.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+        // 1. Crear la escena
+        const scene = new THREE.Scene();
+
+        // 2. Crear la cámara
+        const camera = new THREE.PerspectiveCamera(
+            75,
+            window.innerWidth / window.innerHeight,
+            0.1,
+            1000
+        );
+
+        // 3. Crear el renderizador
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.shadowMap.enabled = true; // Habilitar sombras
+        document.body.appendChild(renderer.domElement);
+
+        // 4. Añadir una luz ambiental
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // Luz suave
+        scene.add(ambientLight);
+
+        // 5. Añadir una luz direccional
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(5, 10, 7.5);
+        directionalLight.castShadow = true; // Habilitar sombras para esta luz
+        scene.add(directionalLight);
+
+        // 6. Cargar texturas
+        const textureLoader = new THREE.TextureLoader();
+        const texturaDifusa = textureLoader.load('textures/brick_diffuse.jpg'); // Textura difusa
+        const texturaNormal = textureLoader.load('textures/brick_normal.jpg'); // Mapa de normales
+
+        // 7. Crear el material
+        const material = new THREE.MeshStandardMaterial({
+            map: texturaDifusa,
+            normalMap: texturaNormal
+        });
+
+        // 8. Crear la geometría y la malla
+        const geometry = new THREE.BoxGeometry(2, 2, 2);
+        const cubo = new THREE.Mesh(geometry, material);
+        cubo.castShadow = true; // El cubo puede proyectar sombras
+        cubo.receiveShadow = true; // El cubo puede recibir sombras
+        scene.add(cubo);
+
+        // 9. Crear el suelo
+        const sueloGeometry = new THREE.PlaneGeometry(10, 10);
+        const sueloMaterial = new THREE.MeshStandardMaterial({ color: 0x808080 });
+        const suelo = new THREE.Mesh(sueloGeometry, sueloMaterial);
+        suelo.rotation.x = -Math.PI / 2; // Rotar para que quede horizontal
+        suelo.position.y = -2; // Posicionar debajo del cubo
+        suelo.receiveShadow = true; // El suelo puede recibir sombras
+        scene.add(suelo);
+
+        // 10. Posicionar la cámara
+        camera.position.set(5, 5, 5);
+        camera.lookAt(cubo.position);
+
+        // 11. Función de animación
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotar el cubo
+            cubo.rotation.x += 0.005;
+            cubo.rotation.y += 0.005;
+
+            // Renderizar la escena
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // 12. Manejar el redimensionamiento de la ventana
+        window.addEventListener('resize', () =&gt; {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h4 id="353-explicacion-del-codigo">3.5.3 Explicación del Código</h4>
+<ol>
+<li><strong>Escena y Cámara:</strong></li>
+<li>Se crea una escena y una cámara en perspectiva.</li>
+<li>
+<p>La cámara está posicionada en (5, 5, 5) y mira hacia el cubo.</p>
+</li>
+<li>
+<p><strong>Renderizador:</strong></p>
+</li>
+<li>
+<p>Se configura el renderizador para ocupar toda la ventana y se habilitan las sombras.</p>
+</li>
+<li>
+<p><strong>Iluminación:</strong></p>
+</li>
+<li><strong>Luz Ambiental (<code>AmbientLight</code>):</strong> Proporciona una iluminación suave y uniforme en toda la escena.</li>
+<li>
+<p><strong>Luz Direccional (<code>DirectionalLight</code>):</strong> Simula una fuente de luz distante, como el sol, y está configurada para proyectar sombras.</p>
+</li>
+<li>
+<p><strong>Texturas:</strong></p>
+</li>
+<li>
+<p>Se cargan una textura difusa (<code>brick_diffuse.jpg</code>) y un mapa de normales (<code>brick_normal.jpg</code>) para darle detalles adicionales al material.</p>
+</li>
+<li>
+<p><strong>Material y Malla:</strong></p>
+</li>
+<li>Se crea un <code>MeshStandardMaterial</code> que utiliza las texturas cargadas.</li>
+<li>Se aplica este material a una geometría de caja (<code>BoxGeometry</code>) para crear la malla del cubo.</li>
+<li>
+<p>El cubo está configurado para proyectar y recibir sombras.</p>
+</li>
+<li>
+<p><strong>Suelo:</strong></p>
+</li>
+<li>Se crea un plano que actúa como suelo, con un color gris.</li>
+<li>El suelo está rotado para quedar horizontal y posicionado debajo del cubo.</li>
+<li>
+<p>Está configurado para recibir sombras.</p>
+</li>
+<li>
+<p><strong>Animación:</strong></p>
+</li>
+<li>
+<p>Se define una función <code>animate</code> que rota el cubo ligeramente en cada frame y renderiza la escena.</p>
+</li>
+<li>
+<p><strong>Redimensionamiento:</strong></p>
+</li>
+<li>Se añade un evento que actualiza el tamaño del renderizador y la cámara cuando la ventana del navegador cambia de tamaño.</li>
+</ol>
+<h4 id="354-recursos-de-texturas">3.5.4 Recursos de Texturas</h4>
+<p>Para este ejemplo, necesitarás dos texturas:</p>
+<ol>
+<li><strong>brick_diffuse.jpg:</strong> Una imagen que representa el color base de los ladrillos.</li>
+<li><strong>brick_normal.jpg:</strong> Una imagen en escala de grises que representa las normales para simular detalles en la superficie.</li>
+</ol>
+<p>Puedes encontrar texturas gratuitas en sitios como <a href="https://cc0textures.com/">CC0 Textures</a> o <a href="https://www.textures.com/">Textures.com</a>.</p>
+<h3 id="36-manipulacion-de-materiales">3.6 Manipulación de Materiales</h3>
+<h4 id="361-cambiar-propiedades-de-materiales-en-tiempo-de-ejecucion">3.6.1 Cambiar Propiedades de Materiales en Tiempo de Ejecución</h4>
+<p>Puedes cambiar las propiedades de un material en tiempo real para crear efectos dinámicos.</p>
+<p><strong>Ejemplo: Cambiar el color de un material al hacer clic</strong></p>
+<pre><code class="language-javascript">cubo.material.color.set(0xff0000); // Cambia el color del cubo a rojo
+</code></pre>
+<h4 id="362-transparencia">3.6.2 Transparencia</h4>
+<p>Puedes hacer que un material sea transparente ajustando la propiedad <code>transparent</code> y <code>opacity</code>.</p>
+<p><strong>Ejemplo: Material Transparente</strong></p>
+<pre><code class="language-javascript">const materialTransparente = new THREE.MeshBasicMaterial({
+    color: 0x00ff00,
+    transparent: true,
+    opacity: 0.5
+});
+</code></pre>
+<h4 id="363-wireframe">3.6.3 Wireframe</h4>
+<p>Puedes visualizar la estructura de una geometría como un wireframe (malla de líneas) estableciendo la propiedad <code>wireframe</code>.</p>
+<p><strong>Ejemplo: Material Wireframe</strong></p>
+<pre><code class="language-javascript">const materialWireframe = new THREE.MeshBasicMaterial({
+    color: 0xffffff,
+    wireframe: true
+});
+</code></pre>
+<h3 id="37-geometrias-compuestas-y-agrupacion-de-objetos">3.7 Geometrías Compuestas y Agrupación de Objetos</h3>
+<p>Three.js permite crear geometrías más complejas combinando múltiples geometrías básicas o agrupando objetos.</p>
+<h4 id="371-union-de-geometrias">3.7.1 Unión de Geometrías</h4>
+<p>Puedes combinar varias geometrías en una sola utilizando <code>THREE.Group</code> o <code>THREE.Object3D</code>.</p>
+<p><strong>Ejemplo: Crear una figura compuesta de dos cajas</strong></p>
+<pre><code class="language-javascript">const grupo = new THREE.Group();
+
+const geometria1 = new THREE.BoxGeometry(1, 1, 1);
+const material1 = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+const cubo1 = new THREE.Mesh(geometria1, material1);
+cubo1.position.set(-1.5, 0, 0);
+
+const geometria2 = new THREE.BoxGeometry(1, 1, 1);
+const material2 = new THREE.MeshBasicMaterial({ color: 0x0000ff });
+const cubo2 = new THREE.Mesh(geometria2, material2);
+cubo2.position.set(1.5, 0, 0);
+
+grupo.add(cubo1);
+grupo.add(cubo2);
+
+scene.add(grupo);
+</code></pre>
+<h4 id="372-uso-de-threeinstancedmesh">3.7.2 Uso de <code>THREE.InstancedMesh</code></h4>
+<p>Para optimizar la renderización de múltiples instancias de la misma geometría y material, puedes usar <code>THREE.InstancedMesh</code>.</p>
+<p><strong>Ejemplo: Crear 100 esferas instanciadas</strong></p>
+<pre><code class="language-javascript">const cantidad = 100;
+const geometria = new THREE.SphereGeometry(0.5, 16, 16);
+const material = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
+
+const instancias = new THREE.InstancedMesh(geometria, material, cantidad);
+
+for (let i = 0; i &lt; cantidad; i++) {
+    const matriz = new THREE.Matrix4();
+    matriz.setPosition(
+        Math.random() * 20 - 10,
+        Math.random() * 20 - 10,
+        Math.random() * 20 - 10
+    );
+    instancias.setMatrixAt(i, matriz);
+}
+
+scene.add(instancias);
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>
